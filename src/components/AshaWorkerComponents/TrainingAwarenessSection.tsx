@@ -38,7 +38,7 @@ const t = (key: string, lang: string) => {
     videos: { en: 'Video Tutorials', hi: 'वीडियो ट्यूटोरियल', od: 'ଭିଡିଓ ପାଠ' },
     guides: { en: 'Step-by-step Guides', hi: 'चरण-दर-चरण मार्गदर्शिका', od: 'ପଦକ୍ଷେପ ଗାଇଡ୍' },
     campaigns: { en: 'Awareness Campaigns', hi: 'जागरूकता अभियान', od: 'ଜାଗରୁକତା ଅଭିଯାନ' },
-    infographics: { en: 'Infographics', hi: 'इन्फोग्राफिक्स', od: 'ଇନ୍ଫୋଗ୍ରାଫିକ୍ସ' },
+    infographics: { en: 'Infographics', hi: 'इन्फोग्राफिक्स', od: 'ଇନ୍ଫୋଗ୍ର��ଫିକ୍ସ' },
     posters: { en: 'Hygiene Posters', hi: 'स्वच्छता पोस���टर', od: 'ସ୍ୱାସ୍ଥ୍ୟ ପୋଷ୍ଟର' },
     downloads: { en: 'Downloadables', hi: 'डाउनलोड सामग्री', od: 'ଡାଉନଲୋଡ଼' },
     progress: { en: 'My Progress', hi: 'मेरी प्रगति', od: 'ମୋର ପ୍ରଗତି' },
@@ -327,10 +327,7 @@ function CampaignsSection() {
 
 function InfographicsSection() {
   const svgPoster = (title: string, subtitle: string) => `<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="800" height="1120"><rect width="100%" height="100%" fill="#E6F4EA"/><text x="50%" y="180" font-size="48" text-anchor="middle" fill="#0A7">${title}</text><text x="50%" y="260" font-size="28" text-anchor="middle" fill="#0A7">${subtitle}</text><circle cx="400" cy="560" r="160" fill="#0A7" opacity="0.1"/><text x="50%" y="560" font-size="36" text-anchor="middle" fill="#0A7">Wash Hands • Boil Water • Clean Storage</text></svg>`;
-  const items = [
-    { title: 'Early Signs of Outbreak', sub: 'Fever, diarrhea, vomiting, dehydration' },
-    { title: 'Safe Water Tips', sub: 'Boil • Filter • Store Covered' },
-  ];
+  const items: { title: string; sub: string }[] = [];
   return (
     <div className="grid gap-4">
       {items.map((info, i) => {
