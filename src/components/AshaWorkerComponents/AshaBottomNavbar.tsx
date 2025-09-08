@@ -4,11 +4,11 @@ import MdIcon from '@/components/ui/md3-icon';
 export type AshaSectionKey = 'alerts' | 'water' | 'training' | 'patients' | 'inventory';
 
 const sections: { id: AshaSectionKey; label: string; icon: string }[] = [
-  { id: 'alerts', label: 'Health Alerts & Updates', icon: 'health_and_safety' },
-  { id: 'water', label: 'Water Quality Monitoring & Reporting', icon: 'water_drop' },
-  { id: 'training', label: 'Training & Awareness Resources', icon: 'menu_book' },
-  { id: 'patients', label: 'Patient Alerts & Inspection Requests', icon: 'notification_important' },
-  { id: 'inventory', label: 'Supply Management & Inventory Control', icon: 'inventory_2' }
+  { id: 'alerts', label: 'Alerts', icon: 'health_and_safety' },
+  { id: 'water', label: 'Water', icon: 'water_drop' },
+  { id: 'training', label: 'Training', icon: 'menu_book' },
+  { id: 'patients', label: 'Patients', icon: 'notification_important' },
+  { id: 'inventory', label: 'Inventory', icon: 'inventory_2' }
 ];
 
 interface Props {
