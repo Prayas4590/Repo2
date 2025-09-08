@@ -2,17 +2,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { 
-  TestTube, 
-  Users, 
-  Package, 
-  AlertTriangle, 
+import {
+  TestTube,
+  Users,
+  Package,
+  AlertTriangle,
   BookOpen,
   Activity,
   CheckCircle,
   Clock,
   Plus
 } from 'lucide-react';
+import { useState } from 'react';
+import AshaBottomNavbar, { AshaSectionKey } from '@/components/AshaWorkerComponents/AshaBottomNavbar';
+import TrainingAwarenessSection from '@/components/AshaWorkerComponents/TrainingAwarenessSection';
 
 const AshaWorkerDashboard = () => {
   const quickActions = [
@@ -75,17 +78,15 @@ const AshaWorkerDashboard = () => {
   const completedTasks = todayTasks.filter(t => t.status === 'completed').length;
   const progressPercentage = (completedTasks / todayTasks.length) * 100;
 
-  return (
+  const [active, setActive] = useState<AshaSectionKey>('alerts');
+
+  const HomeContent = (
     <div className="space-y-6 animate-fade-in">
-      {/* Welcome Section */}
       <div className="text-center py-4">
         <h1 className="headline-medium text-text-primary mb-2">ASHA Dashboard</h1>
-        <p className="body-medium text-text-secondary">
-          Community health monitoring and support
-        </p>
+        <p className="body-medium text-text-secondary">Community health monitoring and support</p>
       </div>
 
-      {/* Daily Progress */}
       <Card className="material-card">
         <CardHeader className="pb-3">
           <CardTitle className="title-medium flex items-center gap-2">
@@ -116,7 +117,6 @@ const AshaWorkerDashboard = () => {
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
       <div className="space-y-4">
         <h2 className="title-medium text-text-primary">Quick Actions</h2>
         <div className="grid grid-cols-2 gap-3">
@@ -138,7 +138,6 @@ const AshaWorkerDashboard = () => {
         </div>
       </div>
 
-      {/* Today's Tasks */}
       <Card className="material-card">
         <CardHeader className="pb-3">
           <CardTitle className="title-medium flex items-center justify-between">
@@ -176,10 +175,16 @@ const AshaWorkerDashboard = () => {
         </CardContent>
       </Card>
 
-      {/* FAB for Quick Action */}
       <Button className="fab bg-asha text-white hover:bg-asha/90">
         <Plus className="h-6 w-6" />
       </Button>
+    </div>
+  );
+
+  return (
+    <div className="space-y-6 animate-fade-in">
+      {active === 'training' ? (<TrainingAwarenessSection />) : HomeContent}
+      <AshaBottomNavbar activeKey={active} onChange={setActive} />
     </div>
   );
 };
