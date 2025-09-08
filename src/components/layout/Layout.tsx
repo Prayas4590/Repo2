@@ -9,6 +9,7 @@ const Layout = () => {
 
   const isCitizen = currentRole === 'citizen';
   const topPadding = isCitizen ? 'pt-[72px]' : 'pt-14';
+  const hideGlobalBottomNav = location.pathname === '/asha';
 
   return (
     <div className={`min-h-screen pb-16 ${topPadding} ${getRoleTheme()}`}>
@@ -16,7 +17,7 @@ const Layout = () => {
       <main className="container mx-auto px-4 py-4 max-w-md">
         <Outlet />
       </main>
-      <BottomNavigation />
+      {!hideGlobalBottomNav && <BottomNavigation />}
     </div>
   );
 };
