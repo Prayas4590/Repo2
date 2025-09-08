@@ -13,7 +13,7 @@ const RoleContext = createContext<RoleContextType | null>(null);
 const roleConfig = {
   citizen: {
     color: 'citizen',
-    path: '/citizen',
+    path: '/resources',
     theme: 'theme-citizen'
   },
   asha: {

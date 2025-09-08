@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
-import { Menu, Search, Bell, Cloud, User, Settings, LogOut, HelpCircle } from 'lucide-react';
+import MdIcon from '@/components/ui/md3-icon';
 import logo from '@/assests/Logo.jpg';
 
 const TopAppBar = () => {
@@ -49,7 +49,7 @@ const TopAppBar = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="ripple rounded-full hover:bg-primary/10">
-              <Menu className="h-7 w-7" />
+              <MdIcon name="menu" size={28} />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-64 bg-card border border-border rounded-xl p-0 overflow-hidden">
@@ -73,26 +73,26 @@ const TopAppBar = () => {
             </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="flex items-center gap-3 p-3 ripple">
-              <User className="h-4 w-4" />
+              <MdIcon name="person" size={18} />
               <span>Profile</span>
             </DropdownMenuItem>
-            <DropdownMenuItem 
+            <DropdownMenuItem
               onClick={() => navigate('/settings')}
               className="flex items-center gap-3 p-3 ripple cursor-pointer"
             >
-              <Settings className="h-4 w-4" />
+              <MdIcon name="settings" size={18} />
               <span>Settings</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="flex items-center gap-3 p-3 ripple">
-              <HelpCircle className="h-4 w-4" />
+              <MdIcon name="help" size={18} />
               <span>Help & Support</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem 
+            <DropdownMenuItem
               onClick={logout}
               className="flex items-center gap-3 p-3 ripple text-error"
             >
-              <LogOut className="h-4 w-4" />
+              <MdIcon name="logout" size={18} />
               <span>Sign Out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -113,16 +113,16 @@ const TopAppBar = () => {
         {/* Right: Actions */}
         <div className="flex items-center gap-1">
           <Button variant="ghost" size="icon" className="ripple rounded-full hover:bg-primary/10">
-            <Search className="h-6 w-6 text-text-primary" />
+            <MdIcon name="search" size={24} className="text-text-primary" />
           </Button>
           <Button variant="ghost" size="icon" className="ripple relative rounded-full hover:bg-primary/10">
-            <Bell className="h-6 w-6 text-text-primary" />
+            <MdIcon name="notifications" size={24} className="text-text-primary" />
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-error rounded-full text-[10px] flex items-center justify-center text-white">
               3
             </span>
           </Button>
           <Button variant="ghost" size="icon" className="ripple rounded-full hover:bg-primary/10">
-            <Cloud className="h-6 w-6 text-success" />
+            <MdIcon name="cloud_done" size={24} className="text-success" />
           </Button>
         </div>
       </div>
