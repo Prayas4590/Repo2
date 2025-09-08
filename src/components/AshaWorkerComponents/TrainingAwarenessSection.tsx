@@ -6,7 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
-import { CheckCircle, Download, Headphones, PlayCircle, Printer, Languages } from 'lucide-react';
+import MdIcon from '@/components/ui/md3-icon';
 
 interface Module {
   id: string;
@@ -147,7 +147,7 @@ export default function TrainingAwarenessSection() {
       <div className="flex items-center justify-between">
         <h1 className="headline-medium text-text-primary">{t('heading', lang)}</h1>
         <div className="flex items-center gap-2">
-          <Languages className="h-5 w-5 text-text-secondary" />
+          <MdIcon name="language" size={20} className="text-text-secondary" />
           <select
             className="border rounded-md px-2 py-1 bg-background text-foreground"
             value={lang}
@@ -156,11 +156,11 @@ export default function TrainingAwarenessSection() {
             {LANGUAGES.map(l => (<option key={l.code} value={l.code}>{l.label}</option>))}
           </select>
           {!speaking ? (
-            <Button variant="outline" size="sm" onClick={speakSample}>
-              <Headphones className="h-4 w-4 mr-2" /> {t('playAudio', lang)}
+            <Button variant="outline" size="sm" className="material-button ripple" onClick={speakSample}>
+              <MdIcon name="headphones" size={18} className="mr-2" /> {t('playAudio', lang)}
             </Button>
           ) : (
-            <Button variant="destructive" size="sm" onClick={stopSpeaking}>
+            <Button variant="destructive" size="sm" className="material-button ripple" onClick={stopSpeaking}>
               {t('stopAudio', lang)}
             </Button>
           )}
@@ -183,7 +183,7 @@ export default function TrainingAwarenessSection() {
             {["https://www.youtube.com/embed/RmYw5X9bG0E","https://www.youtube.com/embed/n-8h3B2CqGk"].map((src, i) => (
               <Card key={i} className="material-card">
                 <CardHeader>
-                  <CardTitle className="title-medium flex items-center gap-2"><PlayCircle className="h-5 w-5 text-info"/> Tutorial {i+1}</CardTitle>
+                  <CardTitle className="title-medium flex items-center gap-2"><MdIcon name="play_circle" size={20} className="text-info"/> Tutorial {i+1}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="aspect-video rounded-lg overflow-hidden">
@@ -249,11 +249,11 @@ export default function TrainingAwarenessSection() {
                 <CardContent>
                   <p className="body-medium text-text-secondary mb-3">{c.desc}</p>
                   <div className="flex gap-2">
-                    <Button variant="outline" size="sm" onClick={() => downloadBlob(`${c.title.replace(/\s+/g,'_')}_plan.txt`, `${c.title}\n\n${c.desc}`)}>
-                      <Download className="h-4 w-4 mr-2"/> Download Plan
+                    <Button variant="outline" size="sm" className="material-button ripple" onClick={() => downloadBlob(`${c.title.replace(/\s+/g,'_')}_plan.txt`, `${c.title}\n\n${c.desc}`)}>
+                      <MdIcon name="download" size={18} className="mr-2" /> Download Plan
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => openPrintable(`<h1>${c.title}</h1><p>${c.desc}</p>`, 'Campaign Plan')}>
-                      <Printer className="h-4 w-4 mr-2"/> Print
+                    <Button variant="ghost" size="sm" className="material-button ripple" onClick={() => openPrintable(`<h1>${c.title}</h1><p>${c.desc}</p>`, 'Campaign Plan')}>
+                      <MdIcon name="print" size={18} className="mr-2" /> Print
                     </Button>
                   </div>
                 </CardContent>
@@ -275,11 +275,11 @@ export default function TrainingAwarenessSection() {
                   <CardContent>
                     <img src={src} alt={info.title} className="w-full rounded-md border" />
                     <div className="mt-3 flex gap-2">
-                      <Button variant="outline" size="sm" onClick={() => downloadBlob(`${info.title.replace(/\s+/g,'_')}.svg`, svg, 'image/svg+xml')}>
-                        <Download className="h-4 w-4 mr-2"/> Download
+                      <Button variant="outline" size="sm" className="material-button ripple" onClick={() => downloadBlob(`${info.title.replace(/\s+/g,'_')}.svg`, svg, 'image/svg+xml')}>
+                        <MdIcon name="download" size={18} className="mr-2" /> Download
                       </Button>
-                      <Button variant="ghost" size="sm" onClick={() => openPrintable(`<img src='${src}' style='width:100%'/>`, 'Infographic')}>
-                        <Printer className="h-4 w-4 mr-2"/> Print
+                      <Button variant="ghost" size="sm" className="material-button ripple" onClick={() => openPrintable(`<img src='${src}' style='width:100%'/>`, 'Infographic')}>
+                        <MdIcon name="print" size={18} className="mr-2" /> Print
                       </Button>
                     </div>
                   </CardContent>
@@ -302,11 +302,11 @@ export default function TrainingAwarenessSection() {
                     <p className="body-small text-text-secondary">A4 printable poster</p>
                   </div>
                   <div className="flex gap-2">
-                    <Button variant="outline" size="sm" onClick={() => downloadBlob(`${p.replace(/\s+/g,'_')}.txt`, `${p} poster content`)}>
-                      <Download className="h-4 w-4 mr-2"/> Download
+                    <Button variant="outline" size="sm" className="material-button ripple" onClick={() => downloadBlob(`${p.replace(/\s+/g,'_')}.txt`, `${p} poster content`)}>
+                      <MdIcon name="download" size={18} className="mr-2" /> Download
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => openPrintable(`<h1>${p}</h1><p>Display in schools and centers.</p>`, p)}>
-                      <Printer className="h-4 w-4 mr-2"/> Print
+                    <Button variant="ghost" size="sm" className="material-button ripple" onClick={() => openPrintable(`<h1>${p}</h1><p>Display in schools and centers.</p>`, p)}>
+                      <MdIcon name="print" size={18} className="mr-2" /> Print
                     </Button>
                   </div>
                 </div>
@@ -324,8 +324,8 @@ export default function TrainingAwarenessSection() {
                 </CardHeader>
                 <CardContent>
                   <p className="body-medium text-text-secondary mb-3">{d.content}</p>
-                  <Button variant="outline" size="sm" onClick={() => downloadBlob(`${d.name.replace(/\s+/g,'_')}.txt`, `${d.name}\n\n${d.content}`)}>
-                    <Download className="h-4 w-4 mr-2"/> Download
+                  <Button variant="outline" size="sm" className="material-button ripple" onClick={() => downloadBlob(`${d.name.replace(/\s+/g,'_')}.txt`, `${d.name}\n\n${d.content}`)}>
+                    <MdIcon name="download" size={18} className="mr-2" /> Download
                   </Button>
                 </CardContent>
               </Card>
@@ -336,7 +336,7 @@ export default function TrainingAwarenessSection() {
         <TabsContent value="progress">
           <Card className="material-card">
             <CardHeader>
-              <CardTitle className="title-medium flex items-center gap-2"><CheckCircle className="h-5 w-5 text-success"/> Progress Tracking</CardTitle>
+              <CardTitle className="title-medium flex items-center gap-2"><MdIcon name="check_circle" size={20} className="text-success"/> Progress Tracking</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
@@ -353,15 +353,15 @@ export default function TrainingAwarenessSection() {
                       <p className="label-large">{m.title}</p>
                       <p className="body-small text-text-secondary">{m.description}</p>
                     </div>
-                    <Button size="sm" variant={progress[m.id] ? 'secondary' : 'default'} onClick={() => toggle(m.id)}>
+                    <Button size="sm" variant={progress[m.id] ? 'secondary' : 'default'} className="material-button ripple" onClick={() => toggle(m.id)}>
                       {progress[m.id] ? 'Completed' : 'Mark Complete'}
                     </Button>
                   </div>
                 ))}
               </div>
               <div className="flex gap-2">
-                <Button onClick={certificate}>
-                  <Printer className="h-4 w-4 mr-2"/> View Certificate
+                <Button className="material-button ripple" onClick={certificate}>
+                  <MdIcon name="print" size={18} className="mr-2" /> View Certificate
                 </Button>
               </div>
             </CardContent>
