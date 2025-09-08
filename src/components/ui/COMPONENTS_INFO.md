@@ -1,0 +1,53 @@
+UI Components Overview
+
+This file documents the purpose of each component under src/components/ui.
+
+- accordion.tsx — Accessible collapsible sections for showing/hiding content groups.
+- alert-dialog.tsx — Modal confirmation dialog for critical actions (confirm/cancel).
+- alert.tsx — Inline status alerts (success, warning, error, info) with icon support.
+- aspect-ratio.tsx — Maintains a fixed aspect ratio for media or any content.
+- avatar.tsx — User avatar with image, fallback initials, and sizing support.
+- badge.tsx — Small status/label pill for categorization and metadata.
+- breadcrumb.tsx — Hierarchical navigation trail with items and separators.
+- button.tsx — Button primitives with variants, sizes, icons, and loading states.
+- calendar.tsx — Date picker/calendar UI for selecting single or multiple dates.
+- card.tsx — Content container with header, title, and body sections.
+- carousel.tsx — Horizontal carousel/slider for cards or images.
+- chart.tsx — Charting primitives/wrappers for simple visualizations.
+- checkbox.tsx — Boolean input with label and controlled/unstyled variants.
+- collapsible.tsx — Show/Hide container controlled by trigger, animates height.
+- command.tsx — Command palette (search + actions) with keyboard navigation.
+- context-menu.tsx — Right-click context menu with nested items and separators.
+- dialog.tsx — General purpose modal dialog with header, content, and footer.
+- drawer.tsx — Slide-over panel from screen edge (mobile-friendly sheet).
+- dropdown-menu.tsx — Triggered menu anchored to button or element.
+- form.tsx — Form field primitives with React Hook Form integration and validation states.
+- hover-card.tsx — Floating card that appears on hover/focus over a trigger.
+- input-otp.tsx — One-time-password (OTP) multi-cell input with focus management.
+- input.tsx — Text input field with variants, states, and icon adornments.
+- label.tsx — Accessible label element for form controls.
+- menubar.tsx — Desktop menubar with top-level menus and submenus.
+- navigation-menu.tsx — Responsive navigation menu with content panels.
+- pagination.tsx — Pagination controls (previous/next, page numbers).
+- popover.tsx — Small floating panel anchored to a trigger (click/hover).
+- progress.tsx — Progress bar for determinate/indeterminate progress.
+- radio-group.tsx — Single-selection group of radio options.
+- resizable.tsx — Resizable panels/split views with drag handles.
+- scroll-area.tsx — Custom scrollable container with styled scrollbars.
+- select.tsx — Custom select/dropdown with keyboard and typeahead.
+- separator.tsx — Horizontal/vertical divider line.
+- sheet.tsx — Overlaid side sheet with header, content, and close actions.
+- sidebar.tsx — App sidebar primitives (nav sections, items, collapse).
+- skeleton.tsx — Loading placeholder blocks matching layout dimensions.
+- slider.tsx — Range slider for numeric input (single or range values).
+- sonner.tsx — Toast notifications powered by sonner with theme integration.
+- switch.tsx — On/Off toggle switch input.
+- table.tsx — Table primitives (table, header, row, cell) for data display.
+- tabs.tsx — Tabbed interface with triggers and content panels.
+- textarea.tsx — Multiline text input with sizing and states.
+- toast.tsx — Toast primitives and types (ShadCN-style toast API).
+- toaster.tsx — Toast viewport/provider component to render toasts.
+- toggle-group.tsx — Segmented control of toggles with single/multiple select.
+- toggle.tsx — Toggleable button component (pressed/unpressed states).
+- tooltip.tsx — Informational tooltip displayed on hover/focus.
+- use-toast.ts — Hook/utilities to trigger and manage toasts.

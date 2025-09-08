@@ -1,0 +1,269 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Material Design Health Platform Design System */
+
+@layer base {
+  :root {
+    /* Base Material Design Colors */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
+    --surface: 0 0% 97%;
+    --surface-variant: 0 0% 94%;
+    
+    /* Material Design Text Colors */
+    --text-primary: 0 0% 13%;
+    --text-secondary: 0 0% 46%;
+    --text-disabled: 0 0% 62%;
+    
+    /* Material Design Borders & Dividers */
+    --border: 0 0% 88%;
+    --divider: 0 0% 92%;
+    --input: 0 0% 88%;
+    --ring: 213 78% 54%;
+    
+    /* Role-based Accent Colors */
+    --citizen-primary: 213 78% 54%;
+    --citizen-light: 213 78% 94%;
+    --asha-primary: 122 39% 49%;
+    --asha-light: 122 39% 94%;
+    --coordinator-primary: 36 100% 50%;
+    --coordinator-light: 36 100% 94%;
+    --doctor-primary: 278 47% 39%;
+    --doctor-light: 278 47% 94%;
+    
+    /* Status Colors */
+    --success: 122 39% 49%;
+    --warning: 36 100% 50%;
+    --error: 0 84% 60%;
+    --info: 213 78% 54%;
+    
+    /* Material Shadows */
+    --shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    --shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    --shadow-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    --shadow-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    
+    /* Spacing & Sizing */
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+    
+    /* Animation Duration */
+    --transition-fast: 150ms;
+    --transition-normal: 250ms;
+    --transition-slow: 350ms;
+    
+    /* Component Specific */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+    --primary: 213 78% 54%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 97%;
+    --secondary-foreground: 0 0% 13%;
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 46%;
+    --accent: 0 0% 97%;
+    --accent-foreground: 0 0% 13%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 0 0% 9%;
+    --foreground: 0 0% 95%;
+    --surface: 0 0% 11%;
+    --surface-variant: 0 0% 14%;
+    --text-primary: 0 0% 95%;
+    --text-secondary: 0 0% 65%;
+    --text-disabled: 0 0% 38%;
+    --border: 0 0% 21%;
+    --divider: 0 0% 17%;
+    --input: 0 0% 21%;
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 11%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 213 78% 64%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 95%;
+    --ring: 213 78% 64%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-roboto;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Material Design Typography */
+  .headline-large { @apply text-[32px] leading-[40px] font-normal tracking-normal; }
+  .headline-medium { @apply text-[28px] leading-[36px] font-normal tracking-normal; }
+  .headline-small { @apply text-[24px] leading-[32px] font-normal tracking-normal; }
+  
+  .title-large { @apply text-[22px] leading-[28px] font-medium tracking-normal; }
+  .title-medium { @apply text-[18px] leading-[24px] font-medium tracking-[0.15px]; }
+  .title-small { @apply text-[16px] leading-[20px] font-medium tracking-[0.1px]; }
+  
+  .label-large { @apply text-[14px] leading-[20px] font-medium tracking-[0.1px]; }
+  .label-medium { @apply text-[12px] leading-[16px] font-medium tracking-[0.5px]; }
+  .label-small { @apply text-[11px] leading-[16px] font-medium tracking-[0.5px]; }
+  
+  .body-large { @apply text-[16px] leading-[24px] font-normal tracking-[0.15px]; }
+  .body-medium { @apply text-[14px] leading-[20px] font-normal tracking-[0.25px]; }
+  .body-small { @apply text-[12px] leading-[16px] font-normal tracking-[0.4px]; }
+}
+
+@layer components {
+  /* Material Design Card */
+  .material-card {
+    @apply bg-card rounded-xl shadow-md border-0 overflow-hidden;
+    box-shadow: var(--shadow-1);
+    transition: box-shadow var(--transition-normal) ease;
+  }
+  
+  .material-card:hover {
+    box-shadow: var(--shadow-2);
+  }
+  
+  /* Material Design Buttons */
+  .material-button {
+    @apply rounded-[20px] font-medium text-sm tracking-[0.1px] transition-all duration-200;
+    min-height: 40px;
+    padding: 10px 24px;
+  }
+  
+  /* Ripple Effect */
+  .ripple {
+    @apply relative overflow-hidden;
+  }
+  
+  .ripple::before {
+    content: '';
+    @apply absolute inset-0 bg-current opacity-0 transition-opacity duration-200;
+    border-radius: inherit;
+  }
+  
+  .ripple:active::before {
+    @apply opacity-10;
+  }
+  
+  /* FAB (Floating Action Button) */
+  .fab {
+    @apply fixed bottom-20 right-4 w-14 h-14 rounded-full shadow-lg flex items-center justify-center;
+    box-shadow: var(--shadow-3);
+    transition: all var(--transition-normal) ease;
+  }
+  
+  .fab:hover {
+    box-shadow: var(--shadow-4);
+    transform: scale(1.05);
+  }
+  
+  /* Bottom Navigation */
+  .bottom-nav {
+    @apply fixed bottom-0 left-0 right-0 bg-surface border-t border-divider;
+    height: 64px;
+    z-index: 1000;
+  }
+  
+  .nav-item {
+    @apply flex flex-col items-center justify-center px-2 py-1 min-w-0 flex-1;
+  }
+  
+  .nav-item.active {
+    @apply text-primary;
+  }
+  
+  .nav-item.active .nav-indicator {
+    @apply bg-primary;
+  }
+  
+  .nav-indicator {
+    @apply w-8 h-1 rounded-full mt-1 transition-colors duration-200;
+  }
+  
+  /* Top App Bar */
+  .app-bar {
+    @apply fixed top-0 left-0 right-0 bg-surface shadow-sm border-b border-divider;
+    height: 56px;
+    z-index: 1001;
+  }
+  .app-bar-medium {
+    height: 72px;
+  }
+  
+  /* Role-specific themes */
+  .theme-citizen { --current-primary: var(--citizen-primary); --current-light: var(--citizen-light); }
+  .theme-asha { --current-primary: var(--asha-primary); --current-light: var(--asha-light); }
+  .theme-coordinator { --current-primary: var(--coordinator-primary); --current-light: var(--coordinator-light); }
+  .theme-doctor { --current-primary: var(--doctor-primary); --current-light: var(--doctor-light); }
+  
+  /* Chat Bubbles */
+  .chat-bubble-outgoing {
+    @apply bg-primary text-primary-foreground rounded-2xl rounded-br-md p-3 ml-12 mb-2;
+  }
+  
+  .chat-bubble-incoming {
+    @apply bg-muted text-foreground rounded-2xl rounded-bl-md p-3 mr-12 mb-2;
+  }
+  
+  /* Offline Banner */
+  .offline-banner {
+    @apply bg-warning text-white px-4 py-2 text-center text-sm font-medium;
+  }
+}
+
+/* Animations */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

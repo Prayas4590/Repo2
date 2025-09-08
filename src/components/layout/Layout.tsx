@@ -1,0 +1,24 @@
+import { Outlet, useLocation } from 'react-router-dom';
+import TopAppBar from './TopAppBar';
+import BottomNavigation from './BottomNavigation';
+import { useRole } from '@/contexts/RoleContext';
+
+const Layout = () => {
+  const { getRoleTheme, currentRole } = useRole();
+  const location = useLocation();
+
+  const isCitizen = currentRole === 'citizen';
+  const topPadding = isCitizen ? 'pt-[72px]' : 'pt-14';
+
+  return (
+    <div className={`min-h-screen pb-16 ${topPadding} ${getRoleTheme()}`}>
+      <TopAppBar />
+      <main className="container mx-auto px-4 py-4 max-w-md">
+        <Outlet />
+      </main>
+      <BottomNavigation />
+    </div>
+  );
+};
+
+export default Layout;

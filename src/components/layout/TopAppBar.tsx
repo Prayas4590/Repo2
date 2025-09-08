@@ -1,0 +1,133 @@
+import { useAuth } from '@/contexts/AuthContext';
+import { useRole } from '@/contexts/RoleContext';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from '@/components/ui/dropdown-menu';
+import { Menu, Search, Bell, Cloud, User, Settings, LogOut, HelpCircle } from 'lucide-react';
+import logo from '@/assests/Logo.jpg';
+
+const TopAppBar = () => {
+  const { user, logout } = useAuth();
+  const { currentRole } = useRole();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const getRoleTitle = () => {
+    if (currentRole === 'citizen') {
+      const path = location.pathname;
+      const params = new URLSearchParams(location.search);
+      if (path === '/resources') return 'Training';
+      if (path === '/communication') return 'Communication';
+      if (path === '/alerts') return 'Alerts';
+      if (path === '/reports') return params.get('type') === 'water' ? 'Water Issues' : 'Report Symptoms';
+      if (path === '/citizen') return 'Home';
+      return 'Citizen';
+    }
+    switch (currentRole) {
+      case 'asha': return 'ASHA Worker';
+      case 'coordinator': return 'Health Coordinator';
+      case 'doctor': return 'Doctor Dashboard';
+      default: return 'JeevanDhara';
+    }
+  };
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
+  return (
+    <header className={`app-bar ${currentRole === 'citizen' ? 'app-bar-medium' : ''}`}>
+      <div className="h-full flex items-center justify-between px-4">
+        {/* Left: Profile Menu */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="ripple rounded-full hover:bg-primary/10">
+              <Menu className="h-7 w-7" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-64 bg-card border border-border rounded-xl p-0 overflow-hidden">
+            <div className="flex items-center gap-3 p-3 bg-primary/5 border-b border-border">
+              <img src={logo} alt="JeevanDhara" className="h-8 w-8 rounded-full object-cover" />
+              <div className="flex-1 min-w-0">
+                <p className="label-medium text-text-primary">JeevanDhara</p>
+                <p className="body-small text-text-secondary">Citizen</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3">
+              <Avatar className="h-10 w-10">
+                <AvatarFallback className="bg-primary text-primary-foreground">
+                  {user ? getInitials(user.name) : 'U'}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <p className="label-medium text-text-primary truncate">{user?.name}</p>
+                <p className="body-small text-text-secondary truncate">{user?.email}</p>
+              </div>
+            </div>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="flex items-center gap-3 p-3 ripple">
+              <User className="h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={() => navigate('/settings')}
+              className="flex items-center gap-3 p-3 ripple cursor-pointer"
+            >
+              <Settings className="h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="flex items-center gap-3 p-3 ripple">
+              <HelpCircle className="h-4 w-4" />
+              <span>Help & Support</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem 
+              onClick={logout}
+              className="flex items-center gap-3 p-3 ripple text-error"
+            >
+              <LogOut className="h-4 w-4" />
+              <span>Sign Out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {/* Center: Title */}
+        <div className="flex-1 text-center">
+          {currentRole === 'citizen' ? (
+            <div className="inline-flex items-center gap-2 justify-center">
+              <img src={logo} alt="JeevanDhara" className="h-7 w-7 rounded-full object-cover" />
+              <h1 className="title-large text-text-primary truncate">Citizen</h1>
+            </div>
+          ) : (
+            <h1 className="title-medium text-text-primary truncate">{getRoleTitle()}</h1>
+          )}
+        </div>
+
+        {/* Right: Actions */}
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="icon" className="ripple rounded-full hover:bg-primary/10">
+            <Search className="h-6 w-6 text-text-primary" />
+          </Button>
+          <Button variant="ghost" size="icon" className="ripple relative rounded-full hover:bg-primary/10">
+            <Bell className="h-6 w-6 text-text-primary" />
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-error rounded-full text-[10px] flex items-center justify-center text-white">
+              3
+            </span>
+          </Button>
+          <Button variant="ghost" size="icon" className="ripple rounded-full hover:bg-primary/10">
+            <Cloud className="h-6 w-6 text-success" />
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default TopAppBar;
