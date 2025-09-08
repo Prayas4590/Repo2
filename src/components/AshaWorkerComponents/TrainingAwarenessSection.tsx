@@ -39,7 +39,7 @@ const t = (key: string, lang: string) => {
     guides: { en: 'Step-by-step Guides', hi: 'चरण-दर-चरण मार्गदर्शिका', od: 'ପଦକ୍ଷେପ ଗାଇଡ୍' },
     campaigns: { en: 'Awareness Campaigns', hi: 'जागरूकता अभियान', od: 'ଜାଗରୁକତା ଅଭିଯାନ' },
     infographics: { en: 'Infographics', hi: 'इन्फोग्राफिक्स', od: 'ଇନ୍ଫୋଗ୍ରାଫିକ୍ସ' },
-    posters: { en: 'Hygiene Posters', hi: 'स्वच्छता पोस्टर', od: 'ସ୍ୱାସ୍ଥ୍ୟ ପୋଷ୍ଟର' },
+    posters: { en: 'Hygiene Posters', hi: 'स्वच्छता पोस���टर', od: 'ସ୍ୱାସ୍ଥ୍ୟ ପୋଷ୍ଟର' },
     downloads: { en: 'Downloadables', hi: 'डाउनलोड सामग्री', od: 'ଡାଉନଲୋଡ଼' },
     progress: { en: 'My Progress', hi: 'मेरी प्रगति', od: 'ମୋର ପ୍ରଗତି' },
   };
@@ -205,22 +205,41 @@ function VideoTutorials() {
               )}
             </div>
             <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                onClick={() => window.open(l.url, '_blank')}
-                className="material-button ripple"
-              >
-                <MdIcon name="play_circle" size={18} className="mr-2" /> Watch
-              </Button>
-              <Button
-                variant={downloaded[l.id] ? 'secondary' : 'default'}
-                onClick={() => startDownload(l.id)}
-                className="material-button ripple"
-                disabled={downloaded[l.id]}
-              >
-                <MdIcon name="download" size={18} className="mr-2" />
-                {downloaded[l.id] ? 'Downloaded' : 'Download'}
-              </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => window.open(l.url, '_blank')}
+                    className="ripple"
+                    aria-label="Watch"
+                    title="Watch"
+                  >
+                    <MdIcon name="play_circle" size={20} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <span className="body-small">Watch</span>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={downloaded[l.id] ? 'secondary' : 'default'}
+                    size="icon"
+                    onClick={() => startDownload(l.id)}
+                    className="ripple"
+                    disabled={downloaded[l.id]}
+                    aria-label={downloaded[l.id] ? 'Downloaded' : 'Download'}
+                    title={downloaded[l.id] ? 'Downloaded' : 'Download'}
+                  >
+                    <MdIcon name="download" size={20} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <span className="body-small">{downloaded[l.id] ? 'Downloaded' : 'Download'}</span>
+                </TooltipContent>
+              </Tooltip>
             </div>
           </div>
         ))}
