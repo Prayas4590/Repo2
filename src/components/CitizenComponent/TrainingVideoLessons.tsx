@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Download, Play, CheckCircle } from 'lucide-react';
+import MdIcon from '@/components/ui/md3-icon';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
  type Lesson = {
@@ -62,7 +62,7 @@ export default function TrainingVideoLessons() {
         {lessons.map((l) => (
           <div key={l.id} className="p-4 rounded-lg border border-border flex items-center gap-4 group">
             <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-primary/10 text-primary">
-              <Play className="h-6 w-6" />
+              <MdIcon name="play_arrow" size={24} />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export default function TrainingVideoLessons() {
                 </Tooltip>
                 {downloaded[l.id] && (
                   <Badge className="bg-success text-success-foreground flex items-center gap-1">
-                    <CheckCircle className="h-3 w-3" /> Offline
+                    <MdIcon name="check_circle" size={16} /> Offline
                   </Badge>
                 )}
               </div>
@@ -93,7 +93,7 @@ export default function TrainingVideoLessons() {
               className="material-button ripple"
               disabled={downloaded[l.id]}
             >
-              <Download className="h-4 w-4 mr-2" />
+              <MdIcon name="download" size={18} className="mr-2" />
               {downloaded[l.id] ? 'Downloaded' : 'Download'}
             </Button>
           </div>
