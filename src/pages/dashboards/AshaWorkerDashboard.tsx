@@ -13,6 +13,7 @@ import {
   Clock,
   Plus
 } from 'lucide-react';
+import AshaBottomNavbar from '@/components/AshaWorkerComponents/AshaBottomNavbar';
 
 const AshaWorkerDashboard = () => {
   const quickActions = [
@@ -180,6 +181,7 @@ const AshaWorkerDashboard = () => {
       <Button className="fab bg-asha text-white hover:bg-asha/90">
         <Plus className="h-6 w-6" />
       </Button>
+      <AshaBottomNavbar />
     </div>
   );
 };
