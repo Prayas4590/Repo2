@@ -16,6 +16,8 @@ import {
 import { useState } from 'react';
 import AshaBottomNavbar, { AshaSectionKey } from '@/components/AshaWorkerComponents/AshaBottomNavbar';
 import TrainingAwarenessSection from '@/components/AshaWorkerComponents/TrainingAwarenessSection';
+import AshaAlertsSection from '@/components/AshaWorkerComponents/AshaAlertsSection';
+import WaterMonitoringSection from '@/components/AshaWorkerComponents/WaterMonitoringSection';
 
 const AshaWorkerDashboard = () => {
   const quickActions = [
@@ -183,7 +185,7 @@ const AshaWorkerDashboard = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {active === 'training' ? (<TrainingAwarenessSection />) : HomeContent}
+      {active === 'training' ? (<TrainingAwarenessSection />) : active === 'alerts' ? (<AshaAlertsSection />) : active === 'water' ? (<WaterMonitoringSection />) : HomeContent}
       <AshaBottomNavbar activeKey={active} onChange={setActive} />
     </div>
   );

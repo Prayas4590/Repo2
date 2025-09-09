@@ -9,6 +9,9 @@ import PostersSection from './PostersSection';
 import DownloadsSection from './DownloadsSection';
 import ProgressSection from './ProgressSection';
 import { LangCode, TRAINING_MODULES, useTrainingProgress, openPrintable } from './TrainingAwarenessUtils';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs } from '@/components/ui/tabs';
+import MdIcon from '@/components/ui/md3-icon';
 
 export default function TrainingAwarenessSection() {
   const { user } = useAuth();
@@ -53,17 +56,66 @@ export default function TrainingAwarenessSection() {
     );
   };
 
-  return (
-    <div className="space-y-6 animate-fade-in">
-      <LanguageToolbar lang={lang} setLang={setLang} speaking={speaking} onSpeak={speakSample} onStop={stopSpeaking} />
+  const SectionHeader = ({ title, icon }: { title: string; icon: string }) => (
+    <div className="sticky top-0 z-10 bg-surface px-4 pt-3 pb-2 border-b border-divider">
+      <div className="flex items-center gap-2">
+        <MdIcon name={icon} size={20} className="text-asha" />
+        <span className="title-medium text-text-primary">{title}</span>
+      </div>
+    </div>
+  );
 
-      <VideoTutorials />
-      <FieldGuides />
-      <CampaignsSection />
-      <InfographicsSection />
-      <PostersSection />
-      <DownloadsSection />
-      <ProgressSection modules={TRAINING_MODULES} progress={progress} completionPercent={completionPercent} toggle={toggle} onCertificate={certificate} />
+  return (
+    <div className="max-w-md mx-auto w-full pb-24">
+      <Card className="material-card">
+        <CardHeader className="pb-3">
+          <CardTitle className="title-medium flex items-center gap-2">
+            <MdIcon name="menu_book" size={20} className="text-asha" />
+            Training & Awareness
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          <Tabs value="videos" onValueChange={() => {}} className="w-full">
+            <div className="w-full grid grid-cols-4 rounded-none sticky top-0 z-10">
+              <button className="text-[11px] py-3 px-2 text-center">Videos</button>
+              <button className="text-[11px] py-3 px-2 text-center">Guides</button>
+              <button className="text-[11px] py-3 px-2 text-center">Campaigns</button>
+              <button className="text-[11px] py-3 px-2 text-center">Progress</button>
+            </div>
+
+            <div className="p-4">
+              <SectionHeader title="Video Tutorials" icon="play_circle" />
+              <div className="p-4 space-y-3">
+                <VideoTutorials />
+              </div>
+            </div>
+
+            <div className="p-4">
+              <SectionHeader title="Field Guides" icon="menu_book" />
+              <div className="p-4 space-y-3">
+                <FieldGuides />
+              </div>
+            </div>
+
+            <div className="p-4">
+              <SectionHeader title="Campaigns & Materials" icon="campaign" />
+              <div className="p-4 space-y-3">
+                <CampaignsSection />
+                <InfographicsSection />
+                <PostersSection />
+                <DownloadsSection />
+              </div>
+            </div>
+
+            <div className="p-4">
+              <SectionHeader title="Progress & Certificate" icon="check_circle" />
+              <div className="p-4 space-y-3">
+                <ProgressSection modules={TRAINING_MODULES} progress={progress} completionPercent={completionPercent} toggle={toggle} onCertificate={certificate} />
+              </div>
+            </div>
+          </Tabs>
+        </CardContent>
+      </Card>
     </div>
   );
 }
