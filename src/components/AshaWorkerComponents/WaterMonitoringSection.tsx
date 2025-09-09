@@ -248,7 +248,11 @@ export default function WaterMonitoringSection() {
 
       <div>
         <Label>Upload photo (color test / source)</Label>
-        <input type="file" accept="image/*" className="mt-2" onChange={(e)=>handlePhoto(e.target.files?.[0])} />
+        <div className="flex items-center gap-2 mt-2">
+          <input ref={manualPhotoRef as any} type="file" accept="image/*" className="hidden" onChange={(e:any)=>handlePhoto(e.target.files?.[0])} />
+          <Button variant="outline" onClick={()=>manualPhotoRef && manualPhotoRef.current && (manualPhotoRef.current.click())}><MdIcon name="camera_alt" size={18} className="mr-2" />Take/Choose Photo</Button>
+          {manualPhoto && <span className="text-xs text-text-secondary truncate">{manualPhoto ? 'Image selected' : ''}</span>}
+        </div>
         {manualPhoto && <img src={manualPhoto} alt="preview" className="mt-2 rounded-lg w-full object-cover h-32" />}
       </div>
 
