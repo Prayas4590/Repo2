@@ -76,6 +76,7 @@ export default function SuppliesManagementSection() {
   const [manualName, setManualName] = useState('');
   const [manualQty, setManualQty] = useState<number>(1);
   const [manualCategory, setManualCategory] = useState<SupplyCategory>(categories[0]);
+  const [viewCategory, setViewCategory] = useState<SupplyCategory | null>(null);
 
   const addManual = () => {
     const name = manualName.trim();
