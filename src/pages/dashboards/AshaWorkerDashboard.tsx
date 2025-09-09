@@ -19,6 +19,7 @@ import TrainingAwarenessSection from '@/components/AshaWorkerComponents/Training
 import AshaAlertsSection from '@/components/AshaWorkerComponents/AshaAlertsSection';
 import WaterMonitoringSection from '@/components/AshaWorkerComponents/WaterMonitoringSection';
 import PatientAlertsSection from '@/components/AshaWorkerComponents/PatientAlertsSection';
+import SuppliesManagementSection from '@/components/AshaWorkerComponents/SuppliesManagementSection';
 
 const AshaWorkerDashboard = () => {
   const quickActions = [
