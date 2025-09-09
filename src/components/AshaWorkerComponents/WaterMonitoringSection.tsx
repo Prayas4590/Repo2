@@ -147,7 +147,7 @@ export default function WaterMonitoringSection() {
       id: `man-${Date.now()}`,
       type: 'manual',
       createdAt: new Date().toISOString(),
-      location: { state, district, village, sourceType },
+      location: { text: locationText, sourceType },
       parameters: { ...manualParams },
       photo: manualPhoto,
       notes
