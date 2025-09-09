@@ -192,6 +192,40 @@ export default function SuppliesManagementSection() {
       </Card>
 
       {/* Separate Request Form */}
+
+      {viewCategory && (
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setViewCategory(null)} />
+          <div className="w-full max-w-md bg-surface rounded-t-lg md:rounded-lg overflow-hidden shadow-lg">
+            <div className="p-4 border-b">
+              <div className="flex items-center justify-between">
+                <h3 className="title-medium">{viewCategory} — Stock</h3>
+                <Button variant="ghost" size="icon" onClick={() => setViewCategory(null)} aria-label="Close">
+                  <MdIcon name="close" size={18} />
+                </Button>
+              </div>
+            </div>
+            <div className="p-4 space-y-2 max-h-[60vh] overflow-auto">
+              {SUPPLIES[viewCategory].map(item => (
+                <div key={item.id} className="flex items-center justify-between p-2 bg-background rounded-lg">
+                  <div className="min-w-0">
+                    <p className="label-medium truncate">{item.name}</p>
+                    <p className="body-small text-text-secondary">Unit: {item.unit}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="title-small">{STOCK_COUNTS[item.id] ?? 0}</p>
+                    <p className="body-small text-text-secondary">Available</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="p-3 border-t flex items-center justify-end">
+              <Button onClick={() => setViewCategory(null)}>Close</Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Card className="material-card">
         <CardHeader>
           <CardTitle className="title-medium flex items-center gap-2">
