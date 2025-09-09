@@ -331,7 +331,7 @@ export default function WaterMonitoringSection() {
             <div>
               <div className="mb-2">
                 <p className="label-medium">Location (selected)</p>
-                <p className="body-small text-text-secondary">{village}, {district}, {state}</p>
+                <p className="body-small text-text-secondary">{locationText}</p>
               </div>
               {IoTCard}
             </div>
@@ -344,25 +344,31 @@ export default function WaterMonitoringSection() {
                 {ManualForm}
               </div>
             </div>
-
-            <div>
-              <SectionDivider />
-              <div className="mt-2">
-                <p className="label-medium">Laboratory Report Upload</p>
-                {LabForm}
-              </div>
-            </div>
-
-            <div>
-              <SectionDivider />
-              <div className="mt-2">
-                <p className="label-medium">Archive</p>
-                {ArchiveView}
-              </div>
-            </div>
           </div>
         </CardContent>
       </Card>
+
+      <div className="mt-4 space-y-3 px-4">
+        <Card className="material-card">
+          <CardHeader className="pb-3">
+            <CardTitle className="title-medium flex items-center gap-2">
+              <MdIcon name="description" size={20} className="text-asha" />
+              Laboratory Report Upload
+            </CardTitle>
+          </CardHeader>
+          <CardContent>{LabForm}</CardContent>
+        </Card>
+
+        <Card className="material-card">
+          <CardHeader className="pb-3">
+            <CardTitle className="title-medium flex items-center gap-2">
+              <MdIcon name="archive" size={20} className="text-asha" />
+              Archive
+            </CardTitle>
+          </CardHeader>
+          <CardContent>{ArchiveView}</CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
