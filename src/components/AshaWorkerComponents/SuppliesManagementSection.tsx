@@ -169,22 +169,63 @@ export default function SuppliesManagementSection() {
 
           <div className="space-y-2">
             {categories.map((c) => (
-              <div key={c} className="p-2 rounded-lg bg-surface-variant/30 border border-divider">
-                <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                    <MdIcon name={categoryIcons[c]} size={18} />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="label-large truncate">{c}</p>
-                    <p className="body-small text-text-secondary">{SUPPLIES[c].length} types</p>
-                  </div>
-                  <div className="ml-auto flex items-center gap-2">
-                    <Button size="sm" variant="ghost" onClick={() => setViewCategory(c)}>
-                      View stock
-                    </Button>
-                    <Badge variant="outline">{SUPPLIES[c].length}</Badge>
+              <div key={c}>
+                <div className="p-2 rounded-lg bg-surface-variant/30 border border-divider">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                      <MdIcon name={categoryIcons[c]} size={18} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="label-large truncate">{c}</p>
+                      <p className="body-small text-text-secondary">{SUPPLIES[c].length} types</p>
+                    </div>
+                    <div className="ml-auto flex items-center gap-2">
+                      <Button size="sm" variant="ghost" onClick={() => setViewCategory(viewCategory === c ? null : c)}>
+                        View stock
+                      </Button>
+                      <Badge variant="outline">{SUPPLIES[c].length}</Badge>
+                    </div>
                   </div>
                 </div>
+
+                {/* Inline stock panel shown directly below the category card */}
+                {viewCategory === c && (
+                  <div className="mt-2 p-3 bg-surface rounded-lg border border-divider">
+                    <div className="space-y-2">
+                      {SUPPLIES[c].map(item => {
+                        const count = STOCK_COUNTS[item.id] ?? 0;
+                        const level = count <= 10 ? 'low' : count <= 50 ? 'medium' : 'ok';
+                        const levelClasses = level === 'low' ? 'bg-error/10 text-error' : level === 'medium' ? 'bg-warning/10 text-warning' : 'bg-success/10 text-success';
+                        return (
+                          <div key={item.id} className="flex items-center gap-3 p-3 bg-background rounded-lg border border-divider">
+                            <div className="w-10 h-10 rounded-lg bg-muted/10 flex items-center justify-center">
+                              <MdIcon name={item.id === 'rapid_test_kits' ? 'science' : categoryIcons[c]} size={18} />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="label-medium truncate">{item.name}</p>
+                              <p className="body-small text-text-secondary">Unit: {item.unit}</p>
+                            </div>
+
+                            <div className="flex flex-col items-end">
+                              <div className={`px-3 py-1 rounded-full text-xs font-medium ${levelClasses}`}>{level === 'low' ? 'Low' : level === 'medium' ? 'Limited' : 'Available'}</div>
+                              <p className="title-small mt-2">{count}</p>
+                              <p className="body-small text-text-secondary">Available</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                      {SUPPLIES[c].length === 0 && (
+                        <div className="p-2 text-center text-text-secondary">No stock information available</div>
+                      )}
+
+                      <div className="pt-2 flex items-center justify-end gap-2">
+                        <Button variant="outline" size="sm" onClick={() => { navigator.clipboard?.writeText(JSON.stringify(SUPPLIES[c].map(i => ({ id: i.id, name: i.name, count: STOCK_COUNTS[i.id] ?? 0 })), null, 2)); toast('Stock copied'); }}>Export</Button>
+                        <Button size="sm" onClick={() => setViewCategory(null)}>Close</Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
