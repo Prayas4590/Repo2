@@ -156,11 +156,17 @@ export default function PatientAlertsSection(){
       </Card>
 
       <Sheet open={sheetOpen} onOpenChange={(v)=>{ if(!v){ setSelected(null); } setSheetOpen(v); }}>
-      <SheetContent side="top" hideOverlay>
-        <div className="px-2">
-          <h3 className="title-medium mb-2">Inspection Form</h3>
-          <div className="pb-6">
-            {selected && <InspectionForm initial={selected} onSubmit={(d)=>{ onInspectionSubmit(d); setSheetOpen(false); }} onCancel={()=>{ setSheetOpen(false); setSelected(null); }} />}
+      <SheetContent side="top" hideOverlay className="p-0">
+        <div className="max-w-md mx-auto w-full">
+          <div className="p-4 border-b border-divider bg-background">
+            <div className="flex items-center justify-between">
+              <h3 className="title-medium">Inspection Form</h3>
+              {/* Close is provided by SheetContent's built-in close button */}
+            </div>
+            <p className="body-small text-text-secondary mt-1">Fill quick inspection details for the selected patient.</p>
+          </div>
+          <div className="p-4 bg-background">
+            {selected && <div className="space-y-3"><InspectionForm initial={selected} onSubmit={(d)=>{ onInspectionSubmit(d); setSheetOpen(false); }} onCancel={()=>{ setSheetOpen(false); setSelected(null); }} /></div>}
           </div>
         </div>
       </SheetContent>
