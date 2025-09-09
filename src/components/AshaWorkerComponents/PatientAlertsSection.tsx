@@ -155,18 +155,16 @@ export default function PatientAlertsSection(){
         </CardContent>
       </Card>
 
-      {selected && (
-        <div className="px-4 mt-3">
-          <Card className="material-card">
-            <CardHeader>
-              <CardTitle className="title-medium flex items-center gap-2">Fill Inspection Form</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <InspectionForm initial={selected} onSubmit={onInspectionSubmit} onCancel={()=>setSelected(null)} />
-            </CardContent>
-          </Card>
+      <Sheet open={sheetOpen} onOpenChange={(v)=>{ if(!v){ setSelected(null); } setSheetOpen(v); }}>
+      <SheetContent side="top" hideOverlay>
+        <div className="px-2">
+          <h3 className="title-medium mb-2">Inspection Form</h3>
+          <div className="pb-6">
+            {selected && <InspectionForm initial={selected} onSubmit={(d)=>{ onInspectionSubmit(d); setSheetOpen(false); }} onCancel={()=>{ setSheetOpen(false); setSelected(null); }} />}
+          </div>
         </div>
-      )}
+      </SheetContent>
+    </Sheet>
 
       <div className="px-4 mt-3">
         <CommunicationHub extraContacts={reports.map(r=>({ id: r.id, name: r.name, role: 'Citizen' as any, phone: r.userId, online: false, type: 'individual' as any }))} />
