@@ -273,6 +273,7 @@ export default function WaterMonitoringSection() {
     <div className="p-4 space-y-3">
       <div className="grid grid-cols-1 gap-2">
         <Input placeholder="Lab name" value={labName} onChange={(e:any)=>setLabName(e.target.value)} />
+        <Input placeholder="Location where sample collected (village, district, state or GPS)" value={labSampleLocation} onChange={(e:any)=>setLabSampleLocation(e.target.value)} />
         <div className="flex items-center gap-2">
           <input ref={labInputRef as any} type="file" accept=".pdf,.jpg,.png" className="hidden" onChange={(e:any)=>handleLabFile(e.target.files?.[0])} />
           <Button variant="outline" onClick={()=>labInputRef && labInputRef.current && (labInputRef.current.click())}><MdIcon name="upload" size={18} className="mr-2" />Choose file</Button>
@@ -281,7 +282,7 @@ export default function WaterMonitoringSection() {
       </div>
       <div className="flex gap-2">
         <Button onClick={submitLabReport} className="flex-1">Upload Report</Button>
-        <Button variant="outline" onClick={()=>{ setLabName(''); setLabFileName(null); }}>Clear</Button>
+        <Button variant="outline" onClick={()=>{ setLabName(''); setLabFileName(null); setLabSampleLocation(locationText); }}>Clear</Button>
       </div>
     </div>
   );
