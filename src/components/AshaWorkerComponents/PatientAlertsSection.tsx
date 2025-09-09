@@ -8,7 +8,6 @@ import InspectionForm from './InspectionForm';
 import CommunicationHub from './CommunicationHub';
 import ArchiveSection from './ArchiveSection';
 import { toast } from '@/components/ui/sonner';
-import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 type PatientReport = {
   id: string;
