@@ -9,6 +9,9 @@ import PostersSection from './PostersSection';
 import DownloadsSection from './DownloadsSection';
 import ProgressSection from './ProgressSection';
 import { LangCode, TRAINING_MODULES, useTrainingProgress, openPrintable } from './TrainingAwarenessUtils';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs } from '@/components/ui/tabs';
+import MdIcon from '@/components/ui/md3-icon';
 
 export default function TrainingAwarenessSection() {
   const { user } = useAuth();
