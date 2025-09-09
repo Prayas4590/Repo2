@@ -202,9 +202,21 @@ export default function SuppliesManagementSection() {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 p-3">
+          {/* Manual item input */}
+          <div className="space-y-2">
+            <p className="label-medium">Add custom item</p>
+            <div className="grid grid-cols-3 gap-2">
+              <Input className="col-span-2" placeholder="What is needed? (e.g. Extra ORS packets)" value={''} aria-label="Manual item name" onChange={() => {}} />
+              <Input type="number" min={1} placeholder="Qty" value={''} aria-label="Manual item quantity" onChange={() => {}} />
+            </div>
+            <div className="flex items-center justify-end">
+              <Button size="sm" variant="ghost">Add to request</Button>
+            </div>
+          </div>
+
           <div className="space-y-2">
             {cart.length === 0 ? (
-              <p className="body-small text-text-secondary">No items selected. Use the Resources section above to add items to your request.</p>
+              <p className="body-small text-text-secondary">No items selected. Use the Resources section above to add items to your request or add a custom item.</p>
             ) : (
               <div className="space-y-2">
                 {cart.map(ci => (
