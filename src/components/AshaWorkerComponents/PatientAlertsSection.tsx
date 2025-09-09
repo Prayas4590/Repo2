@@ -76,8 +76,8 @@ export default function PatientAlertsSection(){
                 <p className="body-small text-text-secondary">{newCount} new</p>
               </div>
               <div className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" onClick={()=>setShowComm(s=>!s)}>
-                  <MdIcon name="chat" size={16} className="mr-2" /> Communication
+                <Button variant="ghost" size="icon" onClick={()=>setShowComm(s=>!s)} aria-label="Communication">
+                  <MdIcon name="chat" size={18} />
                 </Button>
               </div>
             </div>
