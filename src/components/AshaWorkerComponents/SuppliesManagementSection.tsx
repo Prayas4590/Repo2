@@ -223,11 +223,15 @@ export default function SuppliesManagementSection() {
           <div className="space-y-2">
             <p className="label-medium">Add custom item</p>
             <div className="grid grid-cols-3 gap-2">
-              <Input className="col-span-2" placeholder="What is needed? (e.g. Extra ORS packets)" value={''} aria-label="Manual item name" onChange={() => {}} />
-              <Input type="number" min={1} placeholder="Qty" value={''} aria-label="Manual item quantity" onChange={() => {}} />
+              <Input className="col-span-2" placeholder="What is needed? (e.g. Extra ORS packets)" value={manualName} aria-label="Manual item name" onChange={(e) => setManualName((e.target as HTMLInputElement).value)} />
+              <Input type="number" min={1} placeholder="Qty" value={manualQty} aria-label="Manual item quantity" onChange={(e) => setManualQty(Math.max(1, Number((e.target as HTMLInputElement).value || 1)))} />
             </div>
-            <div className="flex items-center justify-end">
-              <Button size="sm" variant="ghost">Add to request</Button>
+            <div className="flex items-center justify-between">
+              <div className="text-xs text-text-secondary">Category: <span className="font-medium">{manualCategory}</span></div>
+              <div className="flex items-center gap-2">
+                <Button size="sm" variant="outline" onClick={() => { setManualName(''); setManualQty(1); }}>Reset</Button>
+                <Button size="sm" onClick={addManual}>Add to request</Button>
+              </div>
             </div>
           </div>
 
