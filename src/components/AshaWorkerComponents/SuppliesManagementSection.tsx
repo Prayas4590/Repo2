@@ -131,6 +131,25 @@ export default function SuppliesManagementSection() {
 
   const totalAvailable = categories.reduce((acc, c) => acc + SUPPLIES[c].length, 0);
 
+  const STOCK_COUNTS: Record<string, number> = {
+    rapid_test_kits: 24,
+    sample_containers: 120,
+    collection_tools: 40,
+    ors: 300,
+    basic_medicines: 200,
+    iv_fluids: 30,
+    first_aid: 45,
+    ppe_gloves_masks_gowns: 150,
+    sanitizers: 80,
+    goggles_shields: 25,
+    purification: 60,
+    storage_containers: 90,
+    chlorination: 15,
+    hygiene_posters: 75,
+    education_kits: 35,
+    portable_speakers: 12,
+  };
+
   return (
     <div className="space-y-3">
       {/* Resources visualization */}
@@ -160,50 +179,12 @@ export default function SuppliesManagementSection() {
                     <p className="body-small text-text-secondary">{SUPPLIES[c].length} types</p>
                   </div>
                   <div className="ml-auto flex items-center gap-2">
-                    <Button size="sm" variant="ghost" onClick={() => toggle(c)} aria-expanded={expanded[c]}>
-                      {expanded[c] ? 'Hide' : 'View'}
+                    <Button size="sm" variant="ghost" onClick={() => setViewCategory(c)}>
+                      View stock
                     </Button>
                     <Badge variant="outline">{SUPPLIES[c].length}</Badge>
                   </div>
                 </div>
-
-                {expanded[c] && (
-                  <div className="mt-3 space-y-2">
-                    {filtered(SUPPLIES[c]).map(item => {
-                      const inCart = cart.find(ci => ci.id === item.id)?.qty || 0;
-                      return (
-                        <div key={item.id} className="flex items-center justify-between p-2 bg-background rounded-lg">
-                          <div className="min-w-0">
-                            <p className="label-medium truncate">{item.name}</p>
-                            <p className="body-small text-text-secondary">Unit: {item.unit}</p>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            {inCart === 0 ? (
-                              <Button size="sm" variant="secondary" onClick={() => addToCart(c, item)}>
-                                <MdIcon name="add" size={16} />
-                                Add
-                              </Button>
-                            ) : (
-                              <div className="flex items-center gap-2">
-                                <Button size="icon" variant="outline" onClick={() => updateQty(item.id, Math.max(0, inCart - 1))} aria-label="Decrease">
-                                  <MdIcon name="remove" size={16} />
-                                </Button>
-                                <div className="w-8 text-center label-medium">{inCart}</div>
-                                <Button size="icon" variant="outline" onClick={() => updateQty(item.id, inCart + 1)} aria-label="Increase">
-                                  <MdIcon name="add" size={16} />
-                                </Button>
-                                <Button size="icon" variant="ghost" onClick={() => removeFromCart(item.id)} aria-label="Remove">
-                                  <MdIcon name="delete" size={16} />
-                                </Button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                    {filtered(SUPPLIES[c]).length === 0 && <p className="body-small text-text-secondary">No items found</p>}
-                  </div>
-                )}
               </div>
             ))}
           </div>
