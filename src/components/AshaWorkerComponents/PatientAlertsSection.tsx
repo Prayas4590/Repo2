@@ -32,7 +32,6 @@ const MOCK: PatientReport[] = [
 export default function PatientAlertsSection(){
   const [reports, setReports] = useState<PatientReport[]>(MOCK);
   const [selected, setSelected] = useState<PatientReport | null>(null);
-  const [sheetOpen, setSheetOpen] = useState(false);
   const [archive, setArchive] = useState<PatientReport[]>([]);
 
   const newCount = useMemo(()=> reports.filter(r=>r.status==='new').length, [reports]);
