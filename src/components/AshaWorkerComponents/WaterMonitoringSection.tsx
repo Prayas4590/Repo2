@@ -75,6 +75,8 @@ export default function WaterMonitoringSection() {
   const [simulating, setSimulating] = useState(false);
   const [iotValues, setIotValues] = useState<Record<string,string>>(() => ({ ...DEFAULT_PARAMS } as Record<string,string>));
   const intervalRef = useRef<number | null>(null);
+  const labInputRef = useRef<HTMLInputElement | null>(null);
+  const manualPhotoRef = useRef<HTMLInputElement | null>(null);
 
   const [state, setState] = useState<string>('Assam');
   const [district, setDistrict] = useState<string>(DISTRICTS['Assam'][0]);
