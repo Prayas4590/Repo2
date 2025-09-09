@@ -105,7 +105,7 @@ export default function PatientAlertsSection(){
 
                   <div className="mt-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Button size="icon" variant="secondary" onClick={()=> openInspection(r)} aria-label="Inspect">
+                      <Button size="icon" variant="secondary" onClick={()=> { setSelected(r); setSheetOpen(true); }} aria-label="Inspect">
                         <MdIcon name="medical_services" size={18} />
                       </Button>
                       <Button size="icon" variant="ghost" onClick={()=> accept(r.id)} aria-label="Accept">
