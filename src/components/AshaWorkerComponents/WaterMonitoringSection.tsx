@@ -78,13 +78,8 @@ export default function WaterMonitoringSection() {
   const labInputRef = useRef<HTMLInputElement | null>(null);
   const manualPhotoRef = useRef<HTMLInputElement | null>(null);
 
-  const [state, setState] = useState<string>('Assam');
-  const [district, setDistrict] = useState<string>(DISTRICTS['Assam'][0]);
-  const [village, setVillage] = useState<string>(VILLAGES[district]?.[0] || '');
+  const [locationText, setLocationText] = useState<string>('Hajo, Kamrup, Assam');
   const [sourceType, setSourceType] = useState<string>('Well');
-
-  useEffect(()=>{ setDistrict(DISTRICTS[state][0]); },[state]);
-  useEffect(()=>{ setVillage(VILLAGES[district]?.[0] || ''); },[district]);
 
   // Archive
   const [archive, setArchive] = useState<ManualTest[]>(() => loadArchive());
