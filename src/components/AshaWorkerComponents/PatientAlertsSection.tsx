@@ -154,9 +154,6 @@ export default function PatientAlertsSection(){
         </CardContent>
       </Card>
 
-      <div className="px-4 mt-3">
-        <SuppliesManagementSection />
-      </div>
 
       {selected && (
       <div className="px-4 mt-3">
