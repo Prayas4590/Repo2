@@ -17,6 +17,7 @@ import { useState } from 'react';
 import AshaBottomNavbar, { AshaSectionKey } from '@/components/AshaWorkerComponents/AshaBottomNavbar';
 import TrainingAwarenessSection from '@/components/AshaWorkerComponents/TrainingAwarenessSection';
 import AshaAlertsSection from '@/components/AshaWorkerComponents/AshaAlertsSection';
+import WaterMonitoringSection from '@/components/AshaWorkerComponents/WaterMonitoringSection';
 
 const AshaWorkerDashboard = () => {
   const quickActions = [
