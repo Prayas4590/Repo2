@@ -120,7 +120,7 @@ export default function WaterMonitoringSection() {
       id: `iot-${Date.now()}`,
       type: 'iot',
       createdAt: new Date().toISOString(),
-      location: { state, district, village, sourceType },
+      location: { text: locationText, sourceType },
       parameters: { ...iotValues },
       photo: null
     };
