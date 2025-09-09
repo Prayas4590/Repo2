@@ -72,6 +72,23 @@ export default function SuppliesManagementSection() {
   const [destination, setDestination] = useState('PHC');
   const [notes, setNotes] = useState('');
 
+  // Manual add inputs
+  const [manualName, setManualName] = useState('');
+  const [manualQty, setManualQty] = useState<number>(1);
+  const [manualCategory, setManualCategory] = useState<SupplyCategory>(categories[0]);
+
+  const addManual = () => {
+    const name = manualName.trim();
+    const qty = Number(manualQty) || 0;
+    if (!name) return toast('Enter item name');
+    if (qty <= 0) return toast('Enter valid quantity');
+    const id = `manual-${Date.now()}`;
+    setCart(prev => [{ id, name, unit: 'pcs', qty, category: manualCategory }, ...prev]);
+    setManualName('');
+    setManualQty(1);
+    toast('Added to request');
+  };
+
   const toggle = (c: SupplyCategory) => setExpanded(prev => ({ ...prev, [c]: !prev[c] }));
 
   const addToCart = (category: SupplyCategory, item: SupplyItem) => {
