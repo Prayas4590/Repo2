@@ -194,33 +194,62 @@ export default function SuppliesManagementSection() {
       {/* Separate Request Form */}
 
       {viewCategory && (
-        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/40" onClick={() => setViewCategory(null)} />
-          <div className="w-full max-w-md bg-surface rounded-t-lg md:rounded-lg overflow-hidden shadow-lg">
-            <div className="p-4 border-b">
-              <div className="flex items-center justify-between">
-                <h3 className="title-medium">{viewCategory} — Stock</h3>
+        <div className="fixed inset-0 z-50 flex items-end justify-center">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setViewCategory(null)} />
+
+          {/* Bottom sheet container for mobile */}
+          <div className="w-full max-w-md bg-surface rounded-t-2xl overflow-hidden shadow-xl translate-y-0">
+            <div className="px-4 py-3 border-b">
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <MdIcon name={categoryIcons[viewCategory]} size={20} className="text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="title-medium truncate">{viewCategory}</h3>
+                  <p className="body-small text-text-secondary">Stock overview</p>
+                </div>
                 <Button variant="ghost" size="icon" onClick={() => setViewCategory(null)} aria-label="Close">
                   <MdIcon name="close" size={18} />
                 </Button>
               </div>
             </div>
-            <div className="p-4 space-y-2 max-h-[60vh] overflow-auto">
-              {SUPPLIES[viewCategory].map(item => (
-                <div key={item.id} className="flex items-center justify-between p-2 bg-background rounded-lg">
-                  <div className="min-w-0">
-                    <p className="label-medium truncate">{item.name}</p>
-                    <p className="body-small text-text-secondary">Unit: {item.unit}</p>
+
+            <div className="p-3 max-h-[62vh] overflow-auto space-y-3">
+              {SUPPLIES[viewCategory].map(item => {
+                const count = STOCK_COUNTS[item.id] ?? 0;
+                const level = count <= 10 ? 'low' : count <= 50 ? 'medium' : 'ok';
+                const levelClasses = level === 'low' ? 'bg-error/10 text-error' : level === 'medium' ? 'bg-warning/10 text-warning' : 'bg-success/10 text-success';
+                return (
+                  <div key={item.id} className="flex items-center gap-3 p-3 bg-background rounded-xl border border-divider">
+                    <div className="w-12 h-12 rounded-lg bg-muted/10 flex items-center justify-center">
+                      <MdIcon name={item.id === 'rapid_test_kits' ? 'science' : categoryIcons[viewCategory]} size={18} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="label-medium truncate">{item.name}</p>
+                      <p className="body-small text-text-secondary">Unit: {item.unit}</p>
+                    </div>
+
+                    <div className="flex flex-col items-end">
+                      <div className={`px-3 py-1 rounded-full text-xs font-medium ${levelClasses}`}>{level === 'low' ? 'Low' : level === 'medium' ? 'Limited' : 'Available'}</div>
+                      <p className="title-small mt-2">{count}</p>
+                      <p className="body-small text-text-secondary">Available</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="title-small">{STOCK_COUNTS[item.id] ?? 0}</p>
-                    <p className="body-small text-text-secondary">Available</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
+
+              {/* Empty state */}
+              {SUPPLIES[viewCategory].length === 0 && (
+                <div className="p-4 text-center text-text-secondary">No stock information available</div>
+              )}
             </div>
-            <div className="p-3 border-t flex items-center justify-end">
-              <Button onClick={() => setViewCategory(null)}>Close</Button>
+
+            <div className="p-3 border-t flex items-center justify-between">
+              <div className="text-xs text-text-secondary">Tip: Tap items to view details</div>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" onClick={() => { navigator.clipboard?.writeText(JSON.stringify(STOCK_COUNTS)); toast('Stock list copied'); }}>Export</Button>
+                <Button onClick={() => setViewCategory(null)}>Close</Button>
+              </div>
             </div>
           </div>
         </div>
