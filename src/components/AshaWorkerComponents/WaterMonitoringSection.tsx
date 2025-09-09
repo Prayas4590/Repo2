@@ -294,7 +294,7 @@ export default function WaterMonitoringSection() {
             <div>
               <p className="label-medium text-text-primary">{item.type === 'iot' ? 'IoT Reading' : item.type === 'manual' ? 'On-spot Test' : 'Lab Report'}</p>
               <p className="body-small text-text-secondary mt-1">{new Date(item.createdAt).toLocaleString()}</p>
-              <p className="body-small text-text-secondary mt-1">{item.location.village}, {item.location.district}</p>
+              <p className="body-small text-text-secondary mt-1">{(item.location as any)?.text ? (item.location as any).text : `${(item.location as any)?.village ?? ''}${(item.location as any)?.village ? ', ' : ''}${(item.location as any)?.district ?? ''}${(item.location as any)?.district ? ', ' : ''}${(item.location as any)?.state ?? ''}`}</p>
             </div>
             <div className="text-right">
               <Badge className="bg-muted/10">{item.type}</Badge>
