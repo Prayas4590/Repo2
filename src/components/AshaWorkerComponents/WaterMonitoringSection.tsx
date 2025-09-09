@@ -162,6 +162,7 @@ export default function WaterMonitoringSection() {
   // Lab report upload
   const [labName, setLabName] = useState('');
   const [labFileName, setLabFileName] = useState<string | null>(null);
+  const [labSampleLocation, setLabSampleLocation] = useState<string>(locationText);
   const handleLabFile = (file?: File) => { if(!file) return setLabFileName(null); setLabFileName(file.name); };
   const submitLabReport = () => {
     if(!labName || !labFileName){ toast('Provide lab name and upload file'); return; }
@@ -169,7 +170,7 @@ export default function WaterMonitoringSection() {
       id: `lab-${Date.now()}`,
       type: 'lab',
       createdAt: new Date().toISOString(),
-      location: { text: locationText },
+      location: { text: labSampleLocation || locationText },
       parameters: {},
       photo: null,
       labReportName: labName,
@@ -177,7 +178,7 @@ export default function WaterMonitoringSection() {
     };
     setArchive(prev=>[item,...prev]);
     toast('Lab report uploaded');
-    setLabName(''); setLabFileName(null);
+    setLabName(''); setLabFileName(null); setLabSampleLocation(locationText);
   };
 
   const removeArchive = (id:string) => {
