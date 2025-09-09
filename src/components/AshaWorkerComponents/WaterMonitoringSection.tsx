@@ -270,11 +270,12 @@ export default function WaterMonitoringSection() {
 
   const LabForm = (
     <div className="p-4 space-y-3">
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 gap-2">
         <Input placeholder="Lab name" value={labName} onChange={(e:any)=>setLabName(e.target.value)} />
-        <div>
-          <input type="file" accept=".pdf,.jpg,.png" onChange={(e)=>handleLabFile(e.target.files?.[0])} />
-          {labFileName && <p className="body-small mt-1">{labFileName}</p>}
+        <div className="flex items-center gap-2">
+          <input ref={labInputRef as any} type="file" accept=".pdf,.jpg,.png" className="hidden" onChange={(e:any)=>handleLabFile(e.target.files?.[0])} />
+          <Button variant="outline" onClick={()=>labInputRef && labInputRef.current && (labInputRef.current.click())}><MdIcon name="upload" size={18} className="mr-2" />Choose file</Button>
+          {labFileName && <p className="body-small">{labFileName}</p>}
         </div>
       </div>
       <div className="flex gap-2">
