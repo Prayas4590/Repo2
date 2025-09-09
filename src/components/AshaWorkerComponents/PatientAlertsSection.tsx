@@ -124,10 +124,11 @@ export default function PatientAlertsSection(){
                           </Button>
                         </DialogTrigger>
                         <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Report — {r.name}</DialogTitle>
-                            <DialogDescription>{r.createdAt}</DialogDescription>
-                          </DialogHeader>
+                        <DialogTitle className="sr-only">Report — {r.name}</DialogTitle>
+                        <DialogHeader>
+                          <DialogTitle>Report — {r.name}</DialogTitle>
+                          <DialogDescription>{r.createdAt}</DialogDescription>
+                        </DialogHeader>
                           <div className="p-2">
                             <p className="label-medium">Symptoms</p>
                             <p className="body-small text-text-secondary">{r.symptoms.join(', ')}</p>
