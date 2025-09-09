@@ -184,7 +184,7 @@ const AshaWorkerDashboard = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {active === 'training' ? (<TrainingAwarenessSection />) : HomeContent}
+      {active === 'training' ? (<TrainingAwarenessSection />) : active === 'alerts' ? (<AshaAlertsSection />) : HomeContent}
       <AshaBottomNavbar activeKey={active} onChange={setActive} />
     </div>
   );
