@@ -18,6 +18,7 @@ import AshaBottomNavbar, { AshaSectionKey } from '@/components/AshaWorkerCompone
 import TrainingAwarenessSection from '@/components/AshaWorkerComponents/TrainingAwarenessSection';
 import AshaAlertsSection from '@/components/AshaWorkerComponents/AshaAlertsSection';
 import WaterMonitoringSection from '@/components/AshaWorkerComponents/WaterMonitoringSection';
+import PatientAlertsSection from '@/components/AshaWorkerComponents/PatientAlertsSection';
 
 const AshaWorkerDashboard = () => {
   const quickActions = [
