@@ -84,53 +84,69 @@ export default function PatientAlertsSection(){
 
             <div className="space-y-2">
               {reports.map(r=> (
-                <div key={r.id} className="p-3 rounded-lg bg-surface-variant/20 border border-divider">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
+                <div key={r.id} className="p-3 rounded-xl bg-surface-variant/30 border border-divider">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                      <span className="font-semibold">{r.name.split(' ').map(s=>s[0]).join('').slice(0,2).toUpperCase()}</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
                         <div>
-                          <p className="label-large text-text-primary">{r.name} <span className="text-xs text-text-secondary">({r.userId})</span></p>
-                          <p className="body-small text-text-secondary">{r.location} • {r.age} yrs • {r.gender}</p>
+                          <p className="label-large text-text-primary truncate">{r.name}</p>
+                          <p className="text-xs text-text-secondary">{r.userId} • {r.age} yrs • {r.gender}</p>
+                          <p className="body-small text-text-secondary mt-1 truncate">{r.location}</p>
                         </div>
-                        <Badge className={r.status==='new' ? 'bg-warning/10 text-warning' : r.status==='accepted' ? 'bg-success/10 text-success' : 'bg-muted/10 text-muted'}>{r.status}</Badge>
+                        <Badge className={`rounded-full px-2 py-1 ${r.status==='new' ? 'bg-warning/10 text-warning' : r.status==='accepted' ? 'bg-success/10 text-success' : 'bg-muted/10 text-muted'}`}>{r.status}</Badge>
                       </div>
-                      <p className="body-small text-text-secondary mt-2 truncate">Symptoms: {r.symptoms.join(', ')}</p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {r.symptoms.map(s=> <Badge key={s} className="text-xs bg-muted/10">{s}</Badge>)}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="mt-3 flex items-center gap-2">
-                    <Button size="sm" variant="secondary" onClick={()=> openInspection(r)}>
-                      <MdIcon name="medical_services" size={16} className="mr-2" /> Inspect
-                    </Button>
-                    <Button size="sm" variant="ghost" onClick={()=> accept(r.id)}>
-                      <MdIcon name="check_circle" size={16} className="mr-2" /> Accept
-                    </Button>
-                    <Button size="sm" variant="outline" onClick={()=> transfer(r.id)}>
-                      <MdIcon name="swap_horiz" size={16} className="mr-2" /> Transfer
-                    </Button>
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button size="sm" variant="ghost"><MdIcon name="visibility" size={16} className="mr-2" />View</Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>Report — {r.name}</DialogTitle>
-                          <DialogDescription>{r.createdAt}</DialogDescription>
-                        </DialogHeader>
-                        <div className="p-2">
-                          <p className="label-medium">Symptoms</p>
-                          <p className="body-small text-text-secondary">{r.symptoms.join(', ')}</p>
-                          <p className="label-medium mt-2">Details</p>
-                          <p className="body-small text-text-secondary">{r.details}</p>
-                          {r.image && <img src={r.image} alt="evidence" className="mt-3 w-full h-48 object-cover rounded-md" />}
-                        </div>
-                        <DialogFooter>
-                          <Button variant="secondary" onClick={()=>{ accept(r.id); toast('Accepted'); }}>Accept</Button>
-                          <Button variant="outline" onClick={()=>{ transfer(r.id); }}>Transfer</Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
+                  <div className="mt-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Button size="icon" variant="secondary" onClick={()=> openInspection(r)} aria-label="Inspect">
+                        <MdIcon name="medical_services" size={18} />
+                      </Button>
+                      <Button size="icon" variant="ghost" onClick={()=> accept(r.id)} aria-label="Accept">
+                        <MdIcon name="check_circle" size={18} />
+                      </Button>
+                      <Button size="icon" variant="outline" onClick={()=> transfer(r.id)} aria-label="Transfer">
+                        <MdIcon name="swap_horiz" size={18} />
+                      </Button>
+                    </div>
 
+                    <div className="flex items-center gap-2">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button size="icon" variant="ghost" aria-label="View report">
+                            <MdIcon name="visibility" size={18} />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Report — {r.name}</DialogTitle>
+                            <DialogDescription>{r.createdAt}</DialogDescription>
+                          </DialogHeader>
+                          <div className="p-2">
+                            <p className="label-medium">Symptoms</p>
+                            <p className="body-small text-text-secondary">{r.symptoms.join(', ')}</p>
+                            <p className="label-medium mt-2">Details</p>
+                            <p className="body-small text-text-secondary">{r.details}</p>
+                            {r.image && <img src={r.image} alt="evidence" className="mt-3 w-full h-48 object-cover rounded-md" />}
+                          </div>
+                          <DialogFooter>
+                            <Button variant="secondary" onClick={()=>{ accept(r.id); toast('Accepted'); }}>Accept</Button>
+                            <Button variant="outline" onClick={()=>{ transfer(r.id); }}>Transfer</Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+
+                      <Button size="icon" variant="ghost" onClick={()=>{ navigator.clipboard?.writeText(JSON.stringify(r)); toast('Copied'); }} aria-label="Share">
+                        <MdIcon name="share" size={18} />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ))}
