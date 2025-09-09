@@ -194,11 +194,8 @@ export default function SuppliesManagementSection() {
       {/* Separate Request Form */}
 
       {viewCategory && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setViewCategory(null)} />
-
-          {/* Bottom sheet container for mobile */}
-          <div className="w-full max-w-md bg-surface rounded-t-2xl overflow-hidden shadow-xl translate-y-0">
+        <div className="mx-auto w-full max-w-md">
+          <div className="bg-surface rounded-lg overflow-hidden shadow-lg border border-divider">
             <div className="px-4 py-3 border-b">
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -214,7 +211,7 @@ export default function SuppliesManagementSection() {
               </div>
             </div>
 
-            <div className="p-3 max-h-[62vh] overflow-auto space-y-3">
+            <div className="p-3 max-h-[60vh] overflow-auto space-y-3">
               {SUPPLIES[viewCategory].map(item => {
                 const count = STOCK_COUNTS[item.id] ?? 0;
                 const level = count <= 10 ? 'low' : count <= 50 ? 'medium' : 'ok';
@@ -238,7 +235,6 @@ export default function SuppliesManagementSection() {
                 );
               })}
 
-              {/* Empty state */}
               {SUPPLIES[viewCategory].length === 0 && (
                 <div className="p-4 text-center text-text-secondary">No stock information available</div>
               )}
