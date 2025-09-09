@@ -8,6 +8,7 @@ import InspectionForm from './InspectionForm';
 import CommunicationHub from './CommunicationHub';
 import ArchiveSection from './ArchiveSection';
 import { toast } from '@/components/ui/sonner';
+import SuppliesManagementSection from './SuppliesManagementSection';
 
 type PatientReport = {
   id: string;
