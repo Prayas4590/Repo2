@@ -158,16 +158,27 @@ export default function PatientAlertsSection(){
 
       <Sheet open={sheetOpen} onOpenChange={(v)=>{ if(!v){ setSelected(null); } setSheetOpen(v); }}>
       <SheetContent side="top" hideOverlay className="p-0">
-        <div className="max-w-md mx-auto w-full">
-          <div className="p-4 border-b border-divider bg-background">
+        <div className="w-screen h-screen bg-background flex flex-col">
+          <div className="px-4 py-3 border-b border-divider">
             <div className="flex items-center justify-between">
-              <h3 className="title-medium">Inspection Form</h3>
-              {/* Close is provided by SheetContent's built-in close button */}
+              <div className="flex items-center gap-3">
+                <button onClick={()=>{ setSheetOpen(false); setSelected(null); }} aria-label="Close" className="rounded-full p-2 bg-muted/10">
+                  <MdIcon name="arrow_back" size={20} />
+                </button>
+                <h3 className="title-medium">Inspection Form</h3>
+              </div>
+              <div className="flex items-center gap-2">
+                <p className="body-small text-text-secondary">{selected?.name}</p>
+              </div>
             </div>
-            <p className="body-small text-text-secondary mt-1">Fill quick inspection details for the selected patient.</p>
           </div>
-          <div className="p-4 bg-background">
-            {selected && <div className="space-y-3"><InspectionForm initial={selected} onSubmit={(d)=>{ onInspectionSubmit(d); setSheetOpen(false); }} onCancel={()=>{ setSheetOpen(false); setSelected(null); }} /></div>}
+
+          <div className="p-4 overflow-y-auto flex-1">
+            {selected && (
+              <div className="max-w-md mx-auto w-full">
+                <InspectionForm initial={selected} onSubmit={(d)=>{ onInspectionSubmit(d); setSheetOpen(false); }} onCancel={()=>{ setSheetOpen(false); setSelected(null); }} />
+              </div>
+            )}
           </div>
         </div>
       </SheetContent>
