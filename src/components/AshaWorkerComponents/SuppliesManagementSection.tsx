@@ -5,12 +5,11 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import MdIcon from '@/components/ui/md3-icon';
 import { toast } from '@/components/ui/sonner';
 
-// Domain types
+// Types
 export type SupplyCategory =
   | 'Water Testing Supplies'
   | 'Medical & Emergency Supplies'
@@ -18,19 +17,9 @@ export type SupplyCategory =
   | 'Water Safety Supplies'
   | 'Community Outreach Materials';
 
-type SupplyItem = {
-  id: string;
-  name: string;
-  unit: string;
-};
+type SupplyItem = { id: string; name: string; unit: string };
 
-type CartItem = {
-  id: string;
-  name: string;
-  unit: string;
-  qty: number;
-  category: SupplyCategory;
-};
+type CartItem = { id: string; name: string; unit: string; qty: number; category: SupplyCategory };
 
 const SUPPLIES: Record<SupplyCategory, SupplyItem[]> = {
   'Water Testing Supplies': [
@@ -69,23 +58,13 @@ const categoryIcons: Record<SupplyCategory, string> = {
   'Community Outreach Materials': 'campaign',
 };
 
-function QtyStepper({ value, onChange }: { value: number; onChange: (n: number) => void }) {
-  return (
-    <div className="flex items-center gap-2">
-      <Button size="icon" variant="outline" onClick={() => onChange(Math.max(0, value - 1))} aria-label="Decrease">
-        <MdIcon name="remove" size={18} />
-      </Button>
-      <div className="w-10 text-center label-medium" aria-live="polite">{value}</div>
-      <Button size="icon" variant="outline" onClick={() => onChange(value + 1)} aria-label="Increase">
-        <MdIcon name="add" size={18} />
-      </Button>
-    </div>
-  );
-}
-
 export default function SuppliesManagementSection() {
   const categories = Object.keys(SUPPLIES) as SupplyCategory[];
-  const [activeTab, setActiveTab] = useState<SupplyCategory>('Water Testing Supplies');
+  const [expanded, setExpanded] = useState<Record<SupplyCategory, boolean>>(() => {
+    const init: any = {};
+    categories.forEach((c) => (init[c] = false));
+    return init;
+  });
   const [search, setSearch] = useState('');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [priority, setPriority] = useState<'Low' | 'Medium' | 'High' | ''>('');
@@ -93,52 +72,36 @@ export default function SuppliesManagementSection() {
   const [destination, setDestination] = useState('PHC');
   const [notes, setNotes] = useState('');
 
+  const toggle = (c: SupplyCategory) => setExpanded(prev => ({ ...prev, [c]: !prev[c] }));
+
   const addToCart = (category: SupplyCategory, item: SupplyItem) => {
     setCart(prev => {
       const existing = prev.find(ci => ci.id === item.id);
-      if (existing) {
-        return prev.map(ci => (ci.id === item.id ? { ...ci, qty: ci.qty + 1 } : ci));
-      }
+      if (existing) return prev.map(ci => (ci.id === item.id ? { ...ci, qty: ci.qty + 1 } : ci));
       return [{ id: item.id, name: item.name, unit: item.unit, qty: 1, category }, ...prev];
     });
   };
 
   const updateQty = (id: string, qty: number) => {
-    setCart(prev => prev
-      .map(ci => (ci.id === id ? { ...ci, qty } : ci))
-      .filter(ci => ci.qty > 0));
+    setCart(prev => prev.map(ci => (ci.id === id ? { ...ci, qty } : ci)).filter(ci => ci.qty > 0));
   };
 
+  const removeFromCart = (id: string) => setCart(prev => prev.filter(ci => ci.id !== id));
   const clearCart = () => setCart([]);
 
-  const filteredItems = useMemo(() => {
-    const items = SUPPLIES[activeTab];
-    if (!search.trim()) return items;
-    const s = search.toLowerCase();
+  const filtered = (items: SupplyItem[]) => {
+    const s = search.trim().toLowerCase();
+    if (!s) return items;
     return items.filter(i => i.name.toLowerCase().includes(s));
-  }, [activeTab, search]);
+  };
 
   const submit = () => {
-    if (cart.length === 0) {
-      toast('Add at least one item');
-      return;
-    }
-    if (!priority) {
-      toast('Select priority');
-      return;
-    }
-    const payload = {
-      requestedAt: new Date().toISOString(),
-      priority,
-      neededBy: neededBy || null,
-      destination,
-      notes: notes || null,
-      items: cart,
-    };
+    if (cart.length === 0) return toast('Select at least one item');
+    if (!priority) return toast('Choose priority');
+    const payload = { requestedAt: new Date().toISOString(), priority, neededBy: neededBy || null, destination, notes: notes || null, items: cart };
     try {
-      // Here we would POST to backend; for now copy to clipboard as confirmation
       navigator.clipboard?.writeText(JSON.stringify(payload, null, 2));
-      toast('Request submitted');
+      toast('Request copied to clipboard');
       clearCart();
       setPriority('');
       setNeededBy('');
@@ -148,100 +111,128 @@ export default function SuppliesManagementSection() {
     }
   };
 
+  const totalAvailable = categories.reduce((acc, c) => acc + SUPPLIES[c].length, 0);
+
   return (
-    <Card className="material-card">
-      <CardHeader className="pb-3">
-        <CardTitle className="title-medium flex items-center gap-2">
-          <MdIcon name="inventory_2" size={20} className="text-asha" />
-          Supply Management & Requests
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center gap-2">
-          <div className="flex-1">
-            <Input
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              placeholder="Search items"
-              aria-label="Search supplies"
-            />
+    <div className="space-y-3">
+      {/* Resources visualization */}
+      <Card className="material-card">
+        <CardHeader>
+          <CardTitle className="title-medium flex items-center gap-2">
+            <MdIcon name="inventory_2" size={20} className="text-asha" />
+            Resources
+            <Badge className="ml-auto">{totalAvailable} items</Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3 p-3">
+          <div className="flex items-center gap-2">
+            <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search resources" aria-label="Search resources" />
+            <Button variant="ghost" size="sm" onClick={() => { setSearch(''); }} aria-label="Clear search">Clear</Button>
           </div>
-          <Badge variant="outline" className="shrink-0">{cart.length} selected</Badge>
-        </div>
 
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SupplyCategory)} className="w-full">
-          <TabsList className="grid grid-cols-2 gap-2 w-full">
-            {categories.map(c => (
-              <TabsTrigger key={c} value={c} className="truncate">
-                <div className="flex items-center gap-1">
-                  <MdIcon name={categoryIcons[c]} size={16} />
-                  <span className="truncate">{c.replace(' (PPE)', '')}</span>
+          <div className="space-y-2">
+            {categories.map((c) => (
+              <div key={c} className="p-2 rounded-lg bg-surface-variant/30 border border-divider">
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                    <MdIcon name={categoryIcons[c]} size={18} />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="label-large truncate">{c}</p>
+                    <p className="body-small text-text-secondary">{SUPPLIES[c].length} types</p>
+                  </div>
+                  <div className="ml-auto flex items-center gap-2">
+                    <Button size="sm" variant="ghost" onClick={() => toggle(c)} aria-expanded={expanded[c]}>
+                      {expanded[c] ? 'Hide' : 'View'}
+                    </Button>
+                    <Badge variant="outline">{SUPPLIES[c].length}</Badge>
+                  </div>
                 </div>
-              </TabsTrigger>
-            ))}
-          </TabsList>
 
-          {categories.map(c => (
-            <TabsContent key={c} value={c} className="space-y-2">
-              {filteredItems.length === 0 && activeTab === c && (
-                <p className="body-small text-text-secondary px-1">No items match your search</p>
-              )}
-              {activeTab === c && filteredItems.map(item => {
-                const selected = cart.find(ci => ci.id === item.id)?.qty || 0;
-                return (
-                  <div key={item.id} className="p-3 rounded-xl bg-surface-variant/30 border border-divider flex items-center justify-between gap-3">
+                {expanded[c] && (
+                  <div className="mt-3 space-y-2">
+                    {filtered(SUPPLIES[c]).map(item => {
+                      const inCart = cart.find(ci => ci.id === item.id)?.qty || 0;
+                      return (
+                        <div key={item.id} className="flex items-center justify-between p-2 bg-background rounded-lg">
+                          <div className="min-w-0">
+                            <p className="label-medium truncate">{item.name}</p>
+                            <p className="body-small text-text-secondary">Unit: {item.unit}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {inCart === 0 ? (
+                              <Button size="sm" variant="secondary" onClick={() => addToCart(c, item)}>
+                                <MdIcon name="add" size={16} />
+                                Add
+                              </Button>
+                            ) : (
+                              <div className="flex items-center gap-2">
+                                <Button size="icon" variant="outline" onClick={() => updateQty(item.id, Math.max(0, inCart - 1))} aria-label="Decrease">
+                                  <MdIcon name="remove" size={16} />
+                                </Button>
+                                <div className="w-8 text-center label-medium">{inCart}</div>
+                                <Button size="icon" variant="outline" onClick={() => updateQty(item.id, inCart + 1)} aria-label="Increase">
+                                  <MdIcon name="add" size={16} />
+                                </Button>
+                                <Button size="icon" variant="ghost" onClick={() => removeFromCart(item.id)} aria-label="Remove">
+                                  <MdIcon name="delete" size={16} />
+                                </Button>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                    {filtered(SUPPLIES[c]).length === 0 && <p className="body-small text-text-secondary">No items found</p>}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Separate Request Form */}
+      <Card className="material-card">
+        <CardHeader>
+          <CardTitle className="title-medium flex items-center gap-2">
+            <MdIcon name="assignment" size={20} className="text-asha" />
+            Request Form
+            <Badge className="ml-auto">{cart.length} selected</Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3 p-3">
+          <div className="space-y-2">
+            {cart.length === 0 ? (
+              <p className="body-small text-text-secondary">No items selected. Use the Resources section above to add items to your request.</p>
+            ) : (
+              <div className="space-y-2">
+                {cart.map(ci => (
+                  <div key={ci.id} className="flex items-center justify-between p-2 bg-muted/30 rounded-lg">
                     <div className="min-w-0">
-                      <p className="label-medium text-text-primary truncate">{item.name}</p>
-                      <p className="body-small text-text-secondary">Unit: {item.unit}</p>
+                      <p className="label-medium truncate">{ci.name}</p>
+                      <p className="body-small text-text-secondary">{ci.qty} × {ci.unit}</p>
                     </div>
                     <div className="flex items-center gap-2">
-                      {selected === 0 ? (
-                        <Button size="sm" variant="secondary" onClick={() => addToCart(c, item)} aria-label={`Add ${item.name}`}>
-                          <MdIcon name="add" size={18} />
-                          Add
-                        </Button>
-                      ) : (
-                        <QtyStepper value={selected} onChange={(n) => updateQty(item.id, n)} />
-                      )}
+                      <Button size="icon" variant="outline" onClick={() => updateQty(ci.id, Math.max(0, ci.qty - 1))} aria-label="Decrease">
+                        <MdIcon name="remove" size={16} />
+                      </Button>
+                      <div className="w-8 text-center label-medium">{ci.qty}</div>
+                      <Button size="icon" variant="outline" onClick={() => updateQty(ci.id, ci.qty + 1)} aria-label="Increase">
+                        <MdIcon name="add" size={16} />
+                      </Button>
+                      <Button size="icon" variant="ghost" onClick={() => removeFromCart(ci.id)} aria-label="Remove">
+                        <MdIcon name="delete" size={16} />
+                      </Button>
                     </div>
                   </div>
-                );
-              })}
-            </TabsContent>
-          ))}
-        </Tabs>
-
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <h3 className="title-small">Request Summary</h3>
-            {cart.length > 0 && (
-              <Button variant="ghost" size="sm" onClick={clearCart} aria-label="Clear">
-                <MdIcon name="delete" size={18} />
-                Clear
-              </Button>
+                ))}
+              </div>
             )}
           </div>
-          {cart.length === 0 ? (
-            <p className="body-small text-text-secondary">No items selected yet</p>
-          ) : (
-            <div className="space-y-2">
-              {cart.map(ci => (
-                <div key={ci.id} className="p-3 rounded-xl bg-muted/30 border border-divider flex items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="label-medium truncate">{ci.name}</p>
-                    <p className="body-small text-text-secondary">{ci.qty} × {ci.unit}</p>
-                  </div>
-                  <QtyStepper value={ci.qty} onChange={(n) => updateQty(ci.id, n)} />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
 
-        <div className="space-y-3">
-          <h3 className="title-small">Common Request Form</h3>
           <div className="grid grid-cols-1 gap-3">
-            <div className="space-y-1">
+            <div>
               <Label className="body-small text-text-secondary">Priority</Label>
               <Select value={priority} onValueChange={(v) => setPriority(v as any)}>
                 <SelectTrigger aria-label="Priority">
@@ -255,12 +246,12 @@ export default function SuppliesManagementSection() {
               </Select>
             </div>
 
-            <div className="space-y-1">
+            <div>
               <Label className="body-small text-text-secondary">Needed By</Label>
-              <Input type="date" value={neededBy} onChange={(e) => setNeededBy(e.target.value)} aria-label="Needed by date" />
+              <Input type="date" value={neededBy} onChange={(e) => setNeededBy(e.target.value)} aria-label="Needed by" />
             </div>
 
-            <div className="space-y-1">
+            <div>
               <Label className="body-small text-text-secondary">Destination</Label>
               <Select value={destination} onValueChange={setDestination}>
                 <SelectTrigger aria-label="Destination">
@@ -275,20 +266,21 @@ export default function SuppliesManagementSection() {
               </Select>
             </div>
 
-            <div className="space-y-1">
-              <Label className="body-small text-text-secondary">Purpose / Notes</Label>
-              <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Add brief justification or delivery instructions" rows={3} />
+            <div>
+              <Label className="body-small text-text-secondary">Notes</Label>
+              <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} placeholder="Provide justification or delivery instructions" />
             </div>
           </div>
-        </div>
 
-        <div className="flex items-center justify-end">
-          <Button className="bg-asha text-white hover:bg-asha/90" onClick={submit} aria-label="Submit request">
-            <MdIcon name="send" size={18} />
-            Submit Request to Authority
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+          <div className="flex items-center justify-between">
+            <Button variant="outline" onClick={clearCart}>Clear</Button>
+            <Button className="bg-asha text-white" onClick={submit}>
+              <MdIcon name="send" size={16} />
+              Submit Request
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
