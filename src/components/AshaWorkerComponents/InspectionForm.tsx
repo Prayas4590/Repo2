@@ -21,36 +21,36 @@ export default function InspectionForm({ initial, onSubmit, onCancel }: any){
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <div className="grid grid-cols-1 gap-2">
-        <Label>Patient name</Label>
-        <Input value={patientName} onChange={(e:any)=>setPatientName(e.target.value)} />
+        <Label className="text-sm">Patient name</Label>
+        <Input value={patientName} onChange={(e:any)=>setPatientName(e.target.value)} className="h-11" />
       </div>
       <div className="grid grid-cols-2 gap-2">
         <div>
-          <Label>Age</Label>
-          <Input value={age} onChange={(e:any)=>setAge(e.target.value)} />
+          <Label className="text-sm">Age</Label>
+          <Input value={age} onChange={(e:any)=>setAge(e.target.value)} className="h-11" />
         </div>
         <div>
-          <Label>Gender</Label>
-          <Input value={gender} onChange={(e:any)=>setGender(e.target.value)} />
+          <Label className="text-sm">Gender</Label>
+          <Input value={gender} onChange={(e:any)=>setGender(e.target.value)} className="h-11" />
         </div>
       </div>
       <div>
-        <Label>Location</Label>
-        <Input value={location} onChange={(e:any)=>setLocation(e.target.value)} />
+        <Label className="text-sm">Location</Label>
+        <Input value={location} onChange={(e:any)=>setLocation(e.target.value)} className="h-11" />
       </div>
       <div>
-        <Label>Condition / Notes</Label>
-        <Textarea value={condition} onChange={(e:any)=>setCondition(e.target.value)} />
+        <Label className="text-sm">Condition / Notes</Label>
+        <Textarea value={condition} onChange={(e:any)=>setCondition(e.target.value)} className="min-h-[96px]" />
       </div>
       <div>
-        <Label>Resources provided (e.g., ORS, Paracetamol)</Label>
-        <Input value={resources} onChange={(e:any)=>setResources(e.target.value)} placeholder="List resources given" />
+        <Label className="text-sm">Resources provided (e.g., ORS, Paracetamol)</Label>
+        <Input value={resources} onChange={(e:any)=>setResources(e.target.value)} placeholder="List resources given" className="h-11" />
       </div>
-      <div className="flex gap-2">
-        <Button onClick={submit} className="flex-1" variant="secondary"><MdIcon name="check_circle" size={16} className="mr-2" />Submit</Button>
-        <Button onClick={onCancel} className="flex-1" variant="outline">Cancel</Button>
+      <div className="space-y-2">
+        <Button onClick={submit} className="w-full" variant="secondary"><MdIcon name="check_circle" size={16} className="mr-2" />Submit</Button>
+        <Button onClick={onCancel} className="w-full" variant="ghost">Cancel</Button>
       </div>
     </div>
   );
