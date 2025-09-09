@@ -334,7 +334,7 @@ export default function AshaAlertsSection() {
   }, [selDistrict]);
 
   return (
-    <div className="md:hidden max-w-md mx-auto w-full pb-24">
+    <div className="max-w-md mx-auto w-full pb-24">
       <Card className="material-card">
         <CardHeader className="pb-3">
           <CardTitle className="title-medium flex items-center gap-2">
