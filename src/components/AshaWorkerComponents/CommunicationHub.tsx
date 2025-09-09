@@ -23,12 +23,13 @@ const CONTACTS: Contact[] = [
 
 const getInitials = (name: string) => name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
 
-export default function CommunicationHub(){
+export default function CommunicationHub({ extraContacts = [] }: { extraContacts?: Contact[] }){
   const [activeContact, setActiveContact] = useState<Contact | null>(null);
   const [messages, setMessages] = useState<any[]>([]);
   const [query, setQuery] = useState('');
 
-  const filtered = CONTACTS.filter(c => c.name.toLowerCase().includes(query.toLowerCase()) || c.role.toLowerCase().includes(query.toLowerCase()));
+  const mergedContacts: Contact[] = [...extraContacts, ...CONTACTS];
+  const filtered = mergedContacts.filter(c => c.name.toLowerCase().includes(query.toLowerCase()) || c.role.toLowerCase().includes(query.toLowerCase()));
 
   if(activeContact){
     return (
