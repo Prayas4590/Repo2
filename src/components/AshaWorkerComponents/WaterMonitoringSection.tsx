@@ -169,7 +169,7 @@ export default function WaterMonitoringSection() {
       id: `lab-${Date.now()}`,
       type: 'lab',
       createdAt: new Date().toISOString(),
-      location: { state, district, village },
+      location: { text: locationText },
       parameters: {},
       photo: null,
       labReportName: labName,
