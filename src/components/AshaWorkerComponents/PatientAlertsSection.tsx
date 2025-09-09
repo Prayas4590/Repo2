@@ -154,33 +154,28 @@ export default function PatientAlertsSection(){
         </CardContent>
       </Card>
 
-      <Sheet open={sheetOpen} onOpenChange={(v)=>{ if(!v){ setSelected(null); } setSheetOpen(v); }}>
-      <SheetContent side="top" hideOverlay className="p-0">
-        <div className="w-screen h-screen bg-background flex flex-col">
-          <div className="px-4 py-3 border-b border-divider">
+      {selected && (
+      <div className="px-4 mt-3">
+        <Card className="material-card">
+          <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <button onClick={()=>{ setSheetOpen(false); setSelected(null); }} aria-label="Close" className="rounded-full p-2 bg-muted/10">
-                  <MdIcon name="arrow_back" size={20} />
-                </button>
-                <h3 className="title-medium">Inspection Form</h3>
+              <div>
+                <h3 className="title-medium">Fill Inspection Form</h3>
+                <p className="body-small text-text-secondary">{selected.name} • {selected.userId}</p>
               </div>
-              <div className="flex items-center gap-2">
-                <p className="body-small text-text-secondary">{selected?.name}</p>
+              <div>
+                <Button variant="ghost" size="icon" onClick={() => setSelected(null)} aria-label="Close form">
+                  <MdIcon name="close" size={18} />
+                </Button>
               </div>
             </div>
-          </div>
-
-          <div className="p-4 overflow-y-auto flex-1">
-            {selected && (
-              <div className="max-w-md mx-auto w-full">
-                <InspectionForm initial={selected} onSubmit={(d)=>{ onInspectionSubmit(d); setSheetOpen(false); }} onCancel={()=>{ setSheetOpen(false); setSelected(null); }} />
-              </div>
-            )}
-          </div>
-        </div>
-      </SheetContent>
-    </Sheet>
+          </CardHeader>
+          <CardContent>
+            <InspectionForm initial={selected} onSubmit={(d)=>{ onInspectionSubmit(d); }} onCancel={()=>{ setSelected(null); }} />
+          </CardContent>
+        </Card>
+      </div>
+    )}
 
       <div className="px-4 mt-3">
         <CommunicationHub extraContacts={reports.map(r=>({ id: r.id, name: r.name, role: 'Citizen' as any, phone: r.userId, online: false, type: 'individual' as any }))} />
