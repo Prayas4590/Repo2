@@ -166,11 +166,9 @@ export default function PatientAlertsSection(){
         </div>
       )}
 
-      {showComm && (
-        <div className="px-4 mt-3">
-          <CommunicationHub />
-        </div>
-      )}
+      <div className="px-4 mt-3">
+        <CommunicationHub extraContacts={reports.map(r=>({ id: r.id, name: r.name, role: 'Citizen' as any, phone: r.userId, online: false, type: 'individual' as any }))} />
+      </div>
 
       <div className="px-4 mt-4">
         <ArchiveSection entries={archive} onClear={()=>setArchive([])} />
