@@ -224,27 +224,8 @@ export default function WaterMonitoringSection() {
 
   const ManualForm = (
     <div className="p-4 space-y-3">
-      <div className="grid grid-cols-2 gap-2">
-        <Select value={state} onValueChange={(v)=>setState(v)}>
-          <SelectTrigger className="w-full"><SelectValue placeholder="State" /></SelectTrigger>
-          <SelectContent>
-            {STATES.map(s=> <SelectItem key={s} value={s}>{s}</SelectItem>)}
-          </SelectContent>
-        </Select>
-        <Select value={district} onValueChange={(v)=>setDistrict(v)}>
-          <SelectTrigger className="w-full"><SelectValue placeholder="District" /></SelectTrigger>
-          <SelectContent>
-            {(DISTRICTS[state]||[]).map(d=> <SelectItem key={d} value={d}>{d}</SelectItem>)}
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="grid grid-cols-2 gap-2">
-        <Select value={village} onValueChange={(v)=>setVillage(v)}>
-          <SelectTrigger className="w-full"><SelectValue placeholder="Village" /></SelectTrigger>
-          <SelectContent>
-            {(VILLAGES[district]||[]).map(v=> <SelectItem key={v} value={v}>{v}</SelectItem>)}
-          </SelectContent>
-        </Select>
+      <div className="grid grid-cols-1 gap-2">
+        <Input placeholder="Location (village, district, state or GPS coords)" value={locationText} onChange={(e:any)=>setLocationText(e.target.value)} />
         <Select value={sourceType} onValueChange={(v)=>setSourceType(v)}>
           <SelectTrigger className="w-full"><SelectValue placeholder="Source" /></SelectTrigger>
           <SelectContent>
