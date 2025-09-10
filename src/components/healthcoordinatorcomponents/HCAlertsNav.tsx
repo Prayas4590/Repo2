@@ -13,12 +13,10 @@ const sections: { key: AlertItem['category']; label: string; icon: any }[] = [
 
 const HCAlertsNav: React.FC<{ alerts: AlertItem[] }> = ({ alerts }) => {
   const [active, setActive] = useState<AlertItem['category']>('outbreak');
-  const [queryOpen, setQueryOpen] = useState(false);
-  const [query, setQuery] = useState('');
 
   const filtered = useMemo(() => {
-    return alerts.filter(a => a.category === active && `${a.title} ${a.area} ${a.status}`.toLowerCase().includes(query.toLowerCase()));
-  }, [alerts, active, query]);
+    return alerts.filter(a => a.category === active);
+  }, [alerts, active]);
 
   return (
     <div className="space-y-4">
