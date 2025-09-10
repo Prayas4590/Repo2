@@ -194,39 +194,45 @@ const WaterSection: React.FC = () => {
 
           <hr />
 
-          {/* Reports Section (stacked) */}
-          <section>
-            <div>
-              <p className="text-sm font-medium">Laboratory Report Upload</p>
-            </div>
-
-            <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div>
-                <Label>Lab name</Label>
-                <Input value={labName} onChange={(e) => setLabName(e.target.value)} placeholder="Lab name" />
-              </div>
-              <div>
-                <Label>Location</Label>
-                <Input value={location} onChange={(e) => setLocation(e.target.value)} />
-              </div>
-              <div>
-                <Label>Choose file</Label>
-                <Input type="file" onChange={(e: any) => setLabFile(e.target.files?.[0] ?? null)} />
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 pt-4">
-              <Button onClick={(e) => uploadReport(e)}>Upload Report</Button>
-              <Button variant="ghost" onClick={() => { setLabFile(null); setLabName(""); }}>Clear</Button>
-            </div>
-
-            <div className="mt-6">
-              <p className="text-sm font-medium">Archive</p>
-              <p className="text-sm text-muted-foreground mt-2">No submissions yet.</p>
-            </div>
-          </section>
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Laboratory Report Upload</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <Label>Lab name</Label>
+              <Input value={labName} onChange={(e) => setLabName(e.target.value)} placeholder="Lab name" />
+            </div>
+            <div>
+              <Label>Location</Label>
+              <Input value={location} onChange={(e) => setLocation(e.target.value)} />
+            </div>
+            <div>
+              <Label>Choose file</Label>
+              <Input type="file" onChange={(e: any) => setLabFile(e.target.files?.[0] ?? null)} />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 pt-4">
+            <Button onClick={(e) => uploadReport(e)}>Upload Report</Button>
+            <Button variant="ghost" onClick={() => { setLabFile(null); setLabName(""); }}>Clear</Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Archive</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground">No submissions yet.</p>
+        </CardContent>
+      </Card>
+
     </div>
   );
 };
