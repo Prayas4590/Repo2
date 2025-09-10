@@ -11,7 +11,7 @@ const Layout = () => {
   const hideGlobalBottomNav = location.pathname === '/asha';
 
   return (
-    <div className={`min-h-screen pb-16 ${topPadding} ${getRoleTheme()}`}>
+    <div className={`min-h-screen pb-14 ${topPadding} ${getRoleTheme()}`}>
       <TopAppBar />
       <main className="container mx-auto px-4 py-4 max-w-md">
         <Outlet />
