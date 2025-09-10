@@ -16,11 +16,14 @@ import {
   Plus
 } from 'lucide-react';
 import { ChatSection } from '@/components/CitizenComponent';
+import DoctorCommunicationHub from '@/components/doctorcomponents/DoctorCommunicationHub';
+import { useRole } from '@/contexts/RoleContext';
 
 const CommunicationPage = () => {
   const [selectedChat, setSelectedChat] = useState(0);
   const [messageInput, setMessageInput] = useState('');
   const { user } = useAuth();
+  const { currentRole } = useRole();
 
   const chats = [
     {
