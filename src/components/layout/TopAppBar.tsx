@@ -43,7 +43,7 @@ const TopAppBar = () => {
   };
 
   return (
-    <header className={`app-bar ${currentRole === 'citizen' ? 'app-bar-medium' : ''}`}>
+    <header className={`app-bar`}>
       <div className="h-full flex items-center justify-between px-4">
         {/* Left: Profile Menu */}
         <DropdownMenu>
