@@ -90,8 +90,7 @@ const HCAlertCard: React.FC<{ alert: AlertItem }> = ({ alert }) => {
             <p className="body-small text-text-secondary mt-2">Status: <span className="capitalize">{alert.status}</span></p>
           </div>
           <div className="flex flex-col items-end gap-2">
-            <Button size="sm" variant={getStatusVariant(alert.status)}>Take Action</Button>
-            <Button size="sm" variant="ghost" className="hidden sm:inline-flex">View</Button>
+            <Button size="sm" variant="ghost">View</Button>
           </div>
         </div>
       </CardContent>
