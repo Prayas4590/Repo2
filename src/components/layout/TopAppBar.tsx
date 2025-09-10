@@ -14,8 +14,8 @@ import MdIcon from '@/components/ui/md3-icon';
 import logo from '@/assests/Logo.jpg';
 
 const TopAppBar = () => {
-  const { user, logout } = useAuth();
-  const { currentRole } = useRole();
+  const { user, logout, switchRole } = useAuth();
+  const { currentRole, getRolePath } = useRole();
   const navigate = useNavigate();
   const location = useLocation();
 
