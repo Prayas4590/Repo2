@@ -30,6 +30,7 @@ const BottomNavigation = () => {
         return [
           { id: 'alerts', label: 'Alerts', icon: 'warning', path: '/coordinator' },
           { id: 'patients', label: 'Patients', icon: 'group', path: '/patients' },
+          { id: 'water', label: 'Water', icon: 'insights', path: '/coordinator/water' },
           { id: 'inventory', label: 'Inventory', icon: 'inventory_2', path: '/inventory' },
           { id: 'hub', label: 'Hub', icon: 'chat', path: '/communication' }
         ];
