@@ -181,10 +181,10 @@ const HCPatientsSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Section 2: Treatment Form (prefilled when Treat clicked) */}
+      {/* Section 2: Diagnosis Form (prefilled when Diagnose clicked) */}
       <div>
-        <h2 className="title-medium mb-2">Treat Patient (Camp / PHC)</h2>
-        <p className="body-small text-text-secondary mb-3">Record treatment provided in camp or primary health center. Fields auto-populate when treating a request.</p>
+        <h2 className="title-medium mb-2">Diagnose Patient (Camp / PHC)</h2>
+        <p className="body-small text-text-secondary mb-3">Record diagnosis and treatment provided in camp or primary health center. Fields auto-populate when diagnosing a request.</p>
 
         <Card className="material-card">
           <CardContent className="p-4">
