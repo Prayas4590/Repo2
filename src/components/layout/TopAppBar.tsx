@@ -112,9 +112,6 @@ const TopAppBar = () => {
 
         {/* Right: Actions */}
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="icon" className="ripple rounded-full hover:bg-primary/10">
-            <MdIcon name="search" size={24} className="text-text-primary" />
-          </Button>
           <Button variant="ghost" size="icon" className="ripple relative rounded-full hover:bg-primary/10">
             <MdIcon name="notifications" size={24} className="text-text-primary" />
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-error rounded-full text-[10px] flex items-center justify-center text-white">
