@@ -12,6 +12,13 @@ export interface AlertItem {
   time: string;
   status: string;
   category: 'outbreak' | 'water' | 'emergency' | 'supply';
+  // optional fields for richer mock data
+  cases?: number;
+  symptoms?: string;
+  contaminant?: string;
+  source?: string;
+  assistanceType?: string;
+  remaining?: number;
 }
 
 const getSeverityColor = (severity: AlertItem['severity']) => {
@@ -42,7 +49,7 @@ const HCAlertCard: React.FC<{ alert: AlertItem }> = ({ alert }) => {
             <span className="truncate">{alert.title}</span>
           </span>
           <div className="flex items-center gap-3">
-            <Badge className={getSeverityColor(alert.severity)}>{alert.severity}</Badge>
+            <Badge className={getSeverityColor(alert.severity)}>{alert.severity.toUpperCase()}</Badge>
             <span className="body-small text-text-disabled">{alert.time}</span>
           </div>
         </CardTitle>
@@ -51,8 +58,36 @@ const HCAlertCard: React.FC<{ alert: AlertItem }> = ({ alert }) => {
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
             <p className="label-medium text-text-primary">Area: {alert.area}</p>
-            <p className="body-small text-text-secondary mt-1">Status: <span className="capitalize">{alert.status}</span></p>
-            <p className="body-small text-text-secondary mt-1">Category: <span className="capitalize">{alert.category.replace(/^(.)/, s => s.toUpperCase())}</span></p>
+
+            {alert.category === 'outbreak' && (
+              <>
+                <p className="body-small text-text-secondary mt-1">Cases: <strong>{alert.cases ?? 0}</strong></p>
+                <p className="body-small text-text-secondary mt-1">Symptoms: {alert.symptoms ?? 'Fever, Vomiting'}</p>
+              </>
+            )}
+
+            {alert.category === 'water' && (
+              <>
+                <p className="body-small text-text-secondary mt-1">Contaminant: <strong>{alert.contaminant ?? 'E. coli'}</strong></p>
+                <p className="body-small text-text-secondary mt-1">Source: {alert.source ?? 'Community well'}</p>
+              </>
+            )}
+
+            {alert.category === 'emergency' && (
+              <>
+                <p className="body-small text-text-secondary mt-1">Assistance: <strong>{alert.assistanceType ?? 'Medical team'}</strong></p>
+                <p className="body-small text-text-secondary mt-1">Priority: {alert.status}</p>
+              </>
+            )}
+
+            {alert.category === 'supply' && (
+              <>
+                <p className="body-small text-text-secondary mt-1">Item: <strong>{alert.title.split('-').slice(0,3).join('-')}</strong></p>
+                <p className="body-small text-text-secondary mt-1">Remaining: {typeof alert.remaining === 'number' ? alert.remaining : 'N/A'}</p>
+              </>
+            )}
+
+            <p className="body-small text-text-secondary mt-2">Status: <span className="capitalize">{alert.status}</span></p>
           </div>
           <div className="flex flex-col items-end gap-2">
             <Button size="sm" variant={getStatusVariant(alert.status)}>Take Action</Button>
