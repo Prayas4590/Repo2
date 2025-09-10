@@ -40,7 +40,7 @@ const BottomNavigation = () => {
         return [
           { id: 'reports', label: 'Reports', icon: 'description', anchor: 'reports' },
           { id: 'alerts', label: 'Alerts', icon: 'warning', anchor: 'alerts' },
-          { id: 'communication', label: 'Communication', icon: 'chat', anchor: 'communication' }
+          { id: 'communication', label: 'Communication', icon: 'chat', path: '/doctor/communication' }
         ];
       default:
         return [];
