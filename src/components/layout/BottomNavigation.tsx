@@ -8,7 +8,9 @@ const BottomNavigation = () => {
   const navigate = useNavigate();
   const { currentRole } = useRole();
 
-  const getNavigationItems = () => {
+  type NavItem = { id: string; label: string; icon: string; path?: string; anchor?: string };
+
+  const getNavigationItems = (): NavItem[] => {
     switch (currentRole) {
       case 'citizen':
         return [
@@ -36,11 +38,9 @@ const BottomNavigation = () => {
         ];
       case 'doctor':
         return [
-          { id: 'home', label: 'Dashboard', icon: 'home', path: '/doctor' },
-          { id: 'patients', label: 'Patients', icon: 'group', path: '/patients' },
-          { id: 'chat', label: 'Chat', icon: 'chat', path: '/communication' },
-          { id: 'ai', label: 'AI Insights', icon: 'psychology', path: '/alerts' },
-          { id: 'reports', label: 'Reports', icon: 'description', path: '/reports' }
+          { id: 'reports', label: 'Reports', icon: 'description', anchor: 'reports' },
+          { id: 'alerts', label: 'Alerts', icon: 'warning', anchor: 'alerts' },
+          { id: 'communication', label: 'Communication', icon: 'chat', anchor: 'communication' }
         ];
       default:
         return [];
@@ -49,7 +49,7 @@ const BottomNavigation = () => {
 
   const navigationItems = getNavigationItems();
 
-  const isActive = (item: { id: string; path: string }) => {
+  const isActive = (item: NavItem) => {
     const pathname = location.pathname;
     const search = location.search;
     if (item.id === 'symptoms' && pathname === '/reports') {
@@ -60,8 +60,21 @@ const BottomNavigation = () => {
       const params = new URLSearchParams(search);
       return params.get('type') === 'water';
     }
-    const itemPath = item.path.split('?')[0];
+    if (item.anchor) {
+      return location.hash === `#${item.anchor}` && pathname === '/doctor';
+    }
+    const itemPath = (item.path || '').split('?')[0];
     return pathname === itemPath;
+  };
+
+  const handleClick = (item: NavItem) => {
+    if (item.anchor) {
+      const el = document.getElementById(item.anchor);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      try { window.history.replaceState(null, '', `#${item.anchor}`); } catch {}
+      return;
+    }
+    if (item.path) navigate(item.path);
   };
 
   return (
@@ -74,7 +87,7 @@ const BottomNavigation = () => {
             <Button
               key={item.id}
               variant="ghost"
-              onClick={() => navigate(item.path)}
+              onClick={() => handleClick(item)}
               className={`nav-item ripple ${active ? 'active' : ''}`}
             >
               <div className={`flex flex-col items-center px-3 py-1 rounded-full ${active ? 'bg-primary/10' : ''}`}>
