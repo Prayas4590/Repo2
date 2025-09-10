@@ -14,7 +14,6 @@ const BottomNavigation = () => {
         return [
           { id: 'training', label: 'Training', icon: 'menu_book', path: '/resources' },
           { id: 'symptoms', label: 'Symptoms', icon: 'description', path: '/reports?type=symptoms' },
-          { id: 'water', label: 'Water', icon: 'water_drop', path: '/reports?type=water' },
           { id: 'chat', label: 'Chat', icon: 'chat', path: '/communication' },
           { id: 'alerts', label: 'Alerts', icon: 'warning', path: '/alerts' }
         ];
@@ -30,7 +29,6 @@ const BottomNavigation = () => {
         return [
           { id: 'alerts', label: 'Alerts', icon: 'warning', path: '/coordinator' },
           { id: 'patients', label: 'Patients', icon: 'group', path: '/patients' },
-          { id: 'water', label: 'Water', icon: 'insights', path: '/alerts' },
           { id: 'inventory', label: 'Inventory', icon: 'inventory_2', path: '/inventory' },
           { id: 'hub', label: 'Hub', icon: 'chat', path: '/communication' }
         ];
