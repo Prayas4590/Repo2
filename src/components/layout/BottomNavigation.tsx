@@ -28,7 +28,7 @@ const BottomNavigation = () => {
         ];
       case 'coordinator':
         return [
-          { id: 'home', label: 'Dashboard', icon: 'home', path: '/coordinator/dashboard' },
+          { id: 'alerts', label: 'Alerts', icon: 'warning', path: '/coordinator' },
           { id: 'patients', label: 'Patients', icon: 'group', path: '/patients' },
           { id: 'water', label: 'Water', icon: 'insights', path: '/alerts' },
           { id: 'inventory', label: 'Inventory', icon: 'inventory_2', path: '/inventory' },
