@@ -14,6 +14,7 @@ const BottomNavigation = () => {
         return [
           { id: 'training', label: 'Training', icon: 'menu_book', path: '/resources' },
           { id: 'symptoms', label: 'Symptoms', icon: 'description', path: '/reports?type=symptoms' },
+          { id: 'water', label: 'Water', icon: 'water_drop', path: '/reports?type=water' },
           { id: 'chat', label: 'Chat', icon: 'chat', path: '/communication' },
           { id: 'alerts', label: 'Alerts', icon: 'warning', path: '/alerts' }
         ];
