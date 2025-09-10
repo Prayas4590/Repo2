@@ -1,14 +1,15 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useRole } from '@/contexts/RoleContext';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import MdIcon from '@/components/ui/md3-icon';
 import logo from '@/assests/Logo.jpg';
@@ -32,6 +33,8 @@ const TopAppBar = () => {
   const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
+
+  const [roleOpen, setRoleOpen] = useState(false);
 
   return (
     <header className={`app-bar`}>
@@ -59,10 +62,15 @@ const TopAppBar = () => {
             {user?.availableRoles && user.availableRoles.length > 1 && (
               <>
                 <DropdownMenuSeparator />
-                <div className="px-3 py-2">
-                  <p className="label-medium text-text-secondary">Switch Role</p>
-                </div>
-                {user.availableRoles.map((role) => {
+                <DropdownMenuItem
+                  onSelect={(e) => { e.preventDefault(); setRoleOpen((v) => !v); }}
+                  className="flex items-center gap-3 p-3 ripple cursor-pointer"
+                >
+                  <MdIcon name="swap_horiz" size={18} />
+                  <span className="flex-1">Switch Role</span>
+                  <MdIcon name={roleOpen ? 'expand_less' : 'expand_more'} size={18} />
+                </DropdownMenuItem>
+                {roleOpen && user.availableRoles.map((role) => {
                   const label = role === 'citizen' ? 'Citizen' : role === 'asha' ? 'ASHA Worker' : role === 'coordinator' ? 'Coordinator' : 'Doctor';
                   const icon = role === 'citizen' ? 'person' : role === 'asha' ? 'health_and_safety' : role === 'coordinator' ? 'group' : 'medical_information';
                   const active = currentRole === role;
