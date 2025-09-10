@@ -114,7 +114,7 @@ const HCPatientsSection: React.FC = () => {
     e.preventDefault();
     // gather form from DOM via controlled inputs below
     if (!formData) return;
-    submitTreatment();
+    submitDiagnosis();
   };
 
   return (
