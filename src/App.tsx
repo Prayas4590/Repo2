@@ -19,6 +19,7 @@ import AshaWorkerDashboard from "./pages/dashboards/AshaWorkerDashboard";
 import CoordinatorDashboard from "./pages/dashboards/CoordinatorDashboard";
 import Alerts from "./pages/healthcoordinator/Alerts";
 import DoctorDashboard from "./pages/dashboards/DoctorDashboard";
+import WaterSection from "./components/healthcoordinatorcomponents/WaterSection";
 
 // Feature Pages
 import ReportsPage from "./pages/ReportsPage";
@@ -55,7 +56,8 @@ const App = () => (
                     <Route path="/citizen" element={<CitizenDashboard />} />
                     <Route path="/asha" element={<AshaWorkerDashboard />} />
                     <Route path="/coordinator" element={<Alerts />} />
-                    <Route path="/coordinator/dashboard" element={<CoordinatorDashboard />} />
+                    <Route path="/coordinator/dashboard" element={<Alerts />} />
+                    <Route path="/coordinator/water" element={<WaterSection />} />
                     <Route path="/doctor" element={<DoctorDashboard />} />
                     
                     {/* Shared Feature Routes */}
