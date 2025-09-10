@@ -107,21 +107,7 @@ const Alerts = () => {
 
       <HCAlertsNav alerts={alerts} />
 
-      <div className="grid grid-cols-3 gap-3">
-        <Button variant="outline" className="h-20 flex flex-col gap-2 ripple">
-          Notify Team
-        </Button>
-        <Button variant="outline" className="h-20 flex flex-col gap-2 ripple">
-          Assign
-        </Button>
-        <Button variant="outline" className="h-20 flex flex-col gap-2 ripple">
-          Supply Request
-        </Button>
-      </div>
-
-      <Button className="fab bg-coordinator text-white hover:bg-coordinator/90">
-        <Plus className="h-6 w-6" />
-      </Button>
+      <div className="h-12" />
     </div>
   );
 };
