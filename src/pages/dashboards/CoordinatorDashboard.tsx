@@ -13,6 +13,8 @@ import {
   Plus
 } from 'lucide-react';
 
+import { Link } from 'react-router-dom';
+
 const CoordinatorDashboard = () => {
   const statsCards = [
     {
