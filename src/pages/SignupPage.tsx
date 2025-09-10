@@ -106,13 +106,13 @@ const AadhaarAuth = ({ onVerified }: { onVerified: (aadhaar: string) => void }) 
   const [sentOtp, setSentOtp] = useState('');
   const canSend = isValidAadhaar(aadhaar);
   const sendOtp = () => {
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const code = '12345';
     setSentOtp(code);
     setOtp('');
     setOtpSent(true);
   };
   const verify = () => {
-    if (otp === sentOtp && otp.length === 6) onVerified(aadhaar);
+    if (otp === sentOtp && otp.length === 5) onVerified(aadhaar);
   };
   return (
     <div className="border rounded-lg p-4 bg-gray-50">
@@ -123,15 +123,15 @@ const AadhaarAuth = ({ onVerified }: { onVerified: (aadhaar: string) => void }) 
       ) : (
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Enter OTP</label>
-          <InputOTP maxLength={6} value={otp} onChange={setOtp} containerClassName="mb-3">
+          <InputOTP maxLength={5} value={otp} onChange={setOtp} containerClassName="mb-3">
             <InputOTPGroup>
-              {Array.from({ length: 6 }).map((_, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <InputOTPSlot key={i} index={i} />
               ))}
             </InputOTPGroup>
           </InputOTP>
           <div className="text-xs text-gray-500 mb-2">Demo OTP: {sentOtp}</div>
-          <ActionButton text="Verify" onClick={verify} disabled={otp.length !== 6} />
+          <ActionButton text="Verify" onClick={verify} disabled={otp.length !== 5} />
         </div>
       )}
     </div>
