@@ -126,49 +126,78 @@ const HCPatientsSection: React.FC = () => {
 
         <div className="space-y-3">
           {requests.map((r) => (
-            <Card key={r.id} className="material-card">
-              <CardContent className="p-4">
-                <div className="flex items-start gap-3">
-                  <Avatar className="h-12 w-12 flex-shrink-0">
-                    <AvatarFallback className="bg-primary text-primary-foreground">
-                      {r.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
+            <div key={r.id}>
+              <Card className="material-card">
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <Avatar className="h-12 w-12 flex-shrink-0">
+                      <AvatarFallback className="bg-primary text-primary-foreground">
+                        {r.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="label-medium">{r.name} <span className="text-xs text-text-disabled">• {r.userId}</span></h3>
-                        <p className="body-small text-text-secondary">{r.age} yrs • {r.gender}</p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h3 className="label-medium">{r.name} <span className="text-xs text-text-disabled">• {r.userId}</span></h3>
+                          <p className="body-small text-text-secondary">{r.age} yrs • {r.gender}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-xs text-text-disabled">{new Date().toLocaleString()}</p>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-xs text-text-disabled">{new Date().toLocaleString()}</p>
+
+                      <p className="body-small text-text-primary mt-3">Location</p>
+                      <div className="flex items-center gap-2 text-text-disabled">
+                        <MapPin className="h-4 w-4" />
+                        <span className="text-sm">{r.location}</span>
                       </div>
-                    </div>
 
-                    <p className="body-small text-text-primary mt-3">Location</p>
-                    <div className="flex items-center gap-2 text-text-disabled">
-                      <MapPin className="h-4 w-4" />
-                      <span className="text-sm">{r.location}</span>
-                    </div>
+                      <p className="body-small text-text-primary mt-3">Symptoms</p>
+                      <p className="text-sm text-text-secondary">{r.symptoms}</p>
 
-                    <p className="body-small text-text-primary mt-3">Symptoms</p>
-                    <p className="text-sm text-text-secondary">{r.symptoms}</p>
+                      {r.files && r.files.length > 0 && (
+                        <div className="mt-3 flex items-center gap-2">
+                          <Paperclip className="h-4 w-4 text-text-secondary" />
+                          <a className="text-sm text-primary underline" href={r.files[0]} target="_blank" rel="noreferrer">View attachment</a>
+                        </div>
+                      )}
 
-                    {r.files && r.files.length > 0 && (
-                      <div className="mt-3 flex items-center gap-2">
-                        <Paperclip className="h-4 w-4 text-text-secondary" />
-                        <a className="text-sm text-primary underline" href={r.files[0]} target="_blank" rel="noreferrer">View attachment</a>
+                      <div className="mt-4 flex items-center justify-end">
+                        <Button size="sm" variant="default" onClick={() => openDiagnoseForm(r)}>Diagnose</Button>
                       </div>
-                    )}
-
-                    <div className="mt-4 flex items-center justify-end">
-                      <Button size="sm" variant="default" onClick={() => openDiagnoseForm(r)}>Diagnose</Button>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+
+              {/* Inline diagnosis form under the card when selected */}
+              {selected?.id === r.id && formData && (
+                <Card className="material-card">
+                  <CardContent className="p-4">
+                    <form onSubmit={(e) => { e.preventDefault(); submitCampTreatment(e); }} className="space-y-3">
+                      <div className="grid grid-cols-1 gap-2">
+                        <Input value={formData?.name ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), name: e.target.value }))} placeholder="Name" />
+                        <div className="flex gap-2">
+                          <Input value={String(formData?.age ?? '')} onChange={(e) => setFormData(prev => ({ ...(prev || {}), age: Number(e.target.value) }))} placeholder="Age" />
+                          <Input value={formData?.gender ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), gender: e.target.value }))} placeholder="Gender" />
+                        </div>
+                        <Input value={formData?.location ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), location: e.target.value }))} placeholder="Location" />
+                        <Input value={formData?.symptoms ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), symptoms: e.target.value }))} placeholder="Symptoms" />
+                        <Input value={formData?.treatment ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), treatment: e.target.value }))} placeholder="Treatment / Procedure" />
+                        <Input value={formData?.medication ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), medication: e.target.value }))} placeholder="Medication prescribed" />
+                        <Input value={formData?.diagnosis ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), diagnosis: e.target.value }))} placeholder="Diagnosis / Disease" />
+                      </div>
+
+                      <div className="flex items-center justify-end">
+                        <Button type="submit" variant="default">Save</Button>
+                        <Button type="button" variant="ghost" className="ml-2" onClick={() => { setFormData(null); setSelected(null); }}>Cancel</Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
           ))}
 
           {requests.length === 0 && (
