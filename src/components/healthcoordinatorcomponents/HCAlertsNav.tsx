@@ -15,6 +15,7 @@ const sections: { key: AlertItem['category']; label: string; icon: any }[] = [
 
 const HCAlertsNav: React.FC<{ alerts: AlertItem[] }> = ({ alerts }) => {
   const [active, setActive] = useState<AlertItem['category']>('outbreak');
+  const [queryOpen, setQueryOpen] = useState(false);
   const [query, setQuery] = useState('');
 
   const filtered = useMemo(() => {
@@ -23,35 +24,42 @@ const HCAlertsNav: React.FC<{ alerts: AlertItem[] }> = ({ alerts }) => {
 
   return (
     <div className="space-y-4">
-      {/* Tabs: mobile-first horizontal scroll */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1">
-        {sections.map((s) => {
-          const Icon = s.icon;
-          const selected = s.key === active;
-          return (
-            <button
-              key={s.key}
-              onClick={() => setActive(s.key)}
-              className={`flex items-center gap-2 whitespace-nowrap px-3 py-2 rounded-full transition-all ${selected ? 'bg-primary/10 ring-1 ring-primary' : 'bg-card/50 hover:bg-card/80'}`}
-            >
-              <Icon className={`${selected ? 'text-primary' : 'text-text-secondary'} h-5 w-5`} />
-              <span className={`text-sm font-medium ${selected ? 'text-primary' : 'text-text-secondary'}`}>{s.label}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Search and quick filters */}
-      <div className="flex items-center gap-2">
-        <div className="flex-1 relative">
-          <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={`Search ${sections.find(s => s.key === active)?.label || 'alerts'}`} />
-          <div className="absolute right-2 top-1/2 -translate-y-1/2">
-            <Button variant="ghost" size="icon" onClick={() => setQuery('')}>
-              <Search className="h-4 w-4" />
-            </Button>
-          </div>
+      {/* Icon-only Tabs: mobile-first grid for equal spacing */}
+      <div className="w-full">
+        <div className="grid grid-cols-4 gap-2">
+          {sections.map((s) => {
+            const Icon = s.icon;
+            const selected = s.key === active;
+            return (
+              <button
+                key={s.key}
+                onClick={() => setActive(s.key)}
+                aria-label={s.label}
+                title={s.label}
+                className={`flex items-center justify-center h-12 w-full rounded-xl transition-shadow ${selected ? 'bg-primary/10 ring-1 ring-primary shadow-sm' : 'bg-card/50 hover:bg-card/80'}`}
+              >
+                <Icon className={`${selected ? 'text-primary' : 'text-text-secondary'} h-5 w-5`} />
+              </button>
+            );
+          })}
         </div>
       </div>
+
+      {/* Compact actions row: search icon only and spacing */}
+      <div className="flex items-center justify-end">
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" aria-label="search" onClick={() => setQueryOpen(s => !s)}>
+            <Search className="h-5 w-5" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Expandable compact search input (appears when search icon tapped) */}
+      {queryOpen && (
+        <div className="w-full">
+          <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search alerts" />
+        </div>
+      )}
 
       {/* List */}
       <div className="grid grid-cols-1 gap-3">
