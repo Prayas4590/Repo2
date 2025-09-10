@@ -1,28 +1,19 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
-import { 
-  Users, 
-  Activity, 
-  Package, 
-  AlertTriangle, 
-  MessageCircle,
-  Droplets,
-  TrendingUp,
-  MapPin,
-  Plus
-} from 'lucide-react';
+import { Plus } from 'lucide-react';
+import HCAlertsNav, { AlertItem } from '@/components/healthcoordinatorcomponents/HCAlertsNav';
 
 const Alerts = () => {
-  const alerts = [
+  const alerts: AlertItem[] = [
     {
       id: 1,
       title: 'Contaminated water reported',
       area: 'Block B',
       severity: 'high',
       time: '1 hour ago',
-      status: 'open'
+      status: 'open',
+      category: 'water'
     },
     {
       id: 2,
@@ -30,35 +21,28 @@ const Alerts = () => {
       area: 'Block A',
       severity: 'medium',
       time: '3 hours ago',
-      status: 'investigating'
+      status: 'investigating',
+      category: 'outbreak'
     },
     {
       id: 3,
+      title: 'Request: urgent medical assistance',
+      area: 'Village Center',
+      severity: 'high',
+      time: '30 minutes ago',
+      status: 'open',
+      category: 'emergency'
+    },
+    {
+      id: 4,
       title: 'Inventory low - Paracetamol',
       area: 'Central Store',
       severity: 'low',
       time: '6 hours ago',
-      status: 'acknowledged'
+      status: 'acknowledged',
+      category: 'supply'
     }
   ];
-
-  const getSeverityColor = (severity: string) => {
-    switch (severity) {
-      case 'high': return 'bg-error text-error-foreground';
-      case 'medium': return 'bg-warning text-warning-foreground';
-      case 'low': return 'bg-success text-success-foreground';
-      default: return 'bg-muted text-muted-foreground';
-    }
-  };
-
-  const getStatusVariant = (status: string) => {
-    switch (status) {
-      case 'open': return 'outline';
-      case 'investigating': return 'secondary';
-      case 'acknowledged': return 'default';
-      default: return 'outline';
-    }
-  };
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -77,48 +61,17 @@ const Alerts = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-3">
-        {alerts.map((alert) => (
-          <Card key={alert.id} className="material-card">
-            <CardHeader className="pb-3">
-              <CardTitle className="title-medium flex items-center justify-between">
-                <span className="flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-warning" />
-                  {alert.title}
-                </span>
-                <span className="flex items-center gap-3">
-                  <Badge className={getSeverityColor(alert.severity)}>{alert.severity}</Badge>
-                  <span className="body-small text-text-disabled">{alert.time}</span>
-                </span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="label-medium text-text-primary">Area: {alert.area}</p>
-                  <p className="body-small text-text-secondary">Status: <span className="capitalize">{alert.status}</span></p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant={getStatusVariant(alert.status)} size="sm">Take Action</Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <HCAlertsNav alerts={alerts} />
 
       <div className="grid grid-cols-3 gap-3">
         <Button variant="outline" className="h-20 flex flex-col gap-2 ripple">
-          <MessageCircle className="h-6 w-6 text-success" />
-          <span className="label-small">Notify Team</span>
+          Notify Team
         </Button>
         <Button variant="outline" className="h-20 flex flex-col gap-2 ripple">
-          <Users className="h-6 w-6 text-coordinator" />
-          <span className="label-small">Assign</span>
+          Assign
         </Button>
         <Button variant="outline" className="h-20 flex flex-col gap-2 ripple">
-          <Package className="h-6 w-6 text-coordinator" />
-          <span className="label-small">Supply Request</span>
+          Supply Request
         </Button>
       </div>
 
