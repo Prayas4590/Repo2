@@ -45,9 +45,9 @@ const HCAlertsNav: React.FC<{ alerts: AlertItem[] }> = ({ alerts }) => {
         <div className="flex-1 relative">
           <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={`Search ${sections.find(s => s.key === active)?.label || 'alerts'}`} />
           <div className="absolute right-2 top-1/2 -translate-y-1/2">
-            <IconButton variant="ghost" size="icon" onClick={() => setQuery('')}>
+            <Button variant="ghost" size="icon" onClick={() => setQuery('')}>
               <Search className="h-4 w-4" />
-            </IconButton>
+            </Button>
           </div>
         </div>
       </div>
