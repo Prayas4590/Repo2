@@ -55,6 +55,32 @@ const TopAppBar = () => {
                 <p className="body-small text-text-secondary truncate">{user?.email}</p>
               </div>
             </div>
+
+            {user?.availableRoles && user.availableRoles.length > 1 && (
+              <>
+                <DropdownMenuSeparator />
+                <div className="px-3 py-2">
+                  <p className="label-medium text-text-secondary">Switch Role</p>
+                </div>
+                {user.availableRoles.map((role) => {
+                  const label = role === 'citizen' ? 'Citizen' : role === 'asha' ? 'ASHA Worker' : role === 'coordinator' ? 'Coordinator' : 'Doctor';
+                  const icon = role === 'citizen' ? 'person' : role === 'asha' ? 'health_and_safety' : role === 'coordinator' ? 'group' : 'medical_information';
+                  const active = currentRole === role;
+                  return (
+                    <DropdownMenuItem
+                      key={role}
+                      onClick={() => { if (!active) { switchRole(role); navigate(getRolePath(role)); } }}
+                      className={`flex items-center gap-3 p-3 ripple cursor-pointer ${active ? 'bg-primary/5' : ''}`}
+                    >
+                      <MdIcon name={icon} size={18} />
+                      <span className="flex-1">{label}</span>
+                      {active && <MdIcon name="check" size={18} className="text-primary" />}
+                    </DropdownMenuItem>
+                  );
+                })}
+              </>
+            )}
+
             <DropdownMenuSeparator />
             <DropdownMenuItem className="flex items-center gap-3 p-3 ripple">
               <MdIcon name="person" size={18} />
