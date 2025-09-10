@@ -22,6 +22,7 @@ import DoctorDashboard from "./pages/dashboards/DoctorDashboard";
 import WaterSection from "./components/healthcoordinatorcomponents/WaterSection";
 import DoctorCommunicationPage from "./pages/doctor/Communication";
 import DoctorAlertsPage from "./pages/doctor/Alerts";
+import DoctorReportsPage from "./pages/doctor/Reports";
 
 // Feature Pages
 import ReportsPage from "./pages/ReportsPage";
