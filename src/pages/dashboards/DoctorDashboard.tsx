@@ -16,7 +16,19 @@ import {
   ChevronRight
 } from 'lucide-react';
 
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 const DoctorDashboard = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const hash = location.hash?.replace('#','');
+    if (hash) {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [location.hash]);
+
   const todayStats = [
     {
       title: 'Patients Today',
