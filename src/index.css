@@ -178,7 +178,7 @@
   /* Bottom Navigation */
   .bottom-nav {
     @apply fixed bottom-0 left-0 right-0 bg-surface border-t border-divider;
-    height: 64px;
+    height: 56px;
     z-index: 1000;
   }
   
