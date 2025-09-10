@@ -18,7 +18,11 @@ import {
   Heart
 } from 'lucide-react';
 
+import { useRole } from '@/contexts/RoleContext';
+import HCPatientsSection from '@/components/healthcoordinatorcomponents/HCPatientsSection';
+
 const PatientsPage = () => {
+  const { currentRole } = useRole();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
 
