@@ -38,7 +38,7 @@ const BottomNavigation = () => {
         ];
       case 'doctor':
         return [
-          { id: 'reports', label: 'Reports', icon: 'description', anchor: 'reports' },
+          { id: 'reports', label: 'Reports', icon: 'description', path: '/doctor/reports' },
           { id: 'alerts', label: 'Alerts', icon: 'warning', path: '/doctor/alerts' },
           { id: 'communication', label: 'Communication', icon: 'chat', path: '/doctor/communication' }
         ];
