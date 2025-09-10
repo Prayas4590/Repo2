@@ -122,7 +122,7 @@ const HCPatientsSection: React.FC = () => {
       {/* Section 1: Requests */}
       <div>
         <h2 className="title-medium mb-2">Patient Requests</h2>
-        <p className="body-small text-text-secondary mb-3">Requests submitted by citizens via the app. Tap Treat to prefill a treatment form.</p>
+        <p className="body-small text-text-secondary mb-3">Requests submitted by citizens via the app. Tap Diagnose to prefill a diagnosis form.</p>
 
         <div className="space-y-3">
           {requests.map((r) => (
