@@ -40,58 +40,66 @@ const getStatusVariant = (status: string) => {
 };
 
 const HCAlertCard: React.FC<{ alert: AlertItem }> = ({ alert }) => {
+  const iconColor = alert.severity === 'high' ? 'text-error' : alert.severity === 'medium' ? 'text-warning' : 'text-success';
+  const iconBg = alert.severity === 'high' ? 'bg-error/10' : alert.severity === 'medium' ? 'bg-warning/10' : 'bg-success/10';
+
   return (
-    <Card className="material-card">
-      <CardHeader className="pb-3">
-        <CardTitle className="title-medium flex items-center justify-between">
-          <span className="flex items-center gap-2">
-            <AlertTriangle className={`h-5 w-5 ${alert.severity === 'high' ? 'text-error' : alert.severity === 'medium' ? 'text-warning' : 'text-success'}`} />
-            <span className="truncate">{alert.title}</span>
-          </span>
-          <div className="flex items-center gap-3">
-            <Badge className={getSeverityColor(alert.severity)}>{alert.severity.toUpperCase()}</Badge>
-            <span className="body-small text-text-disabled">{alert.time}</span>
+    <Card className="material-card overflow-hidden">
+      <CardHeader className="p-4">
+        <div className="flex items-start gap-3">
+          <div className={`flex-shrink-0 h-10 w-10 rounded-lg flex items-center justify-center ${iconBg}`}>
+            <AlertTriangle className={`h-5 w-5 ${iconColor}`} />
           </div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-start justify-between gap-3">
+
           <div className="flex-1 min-w-0">
-            <p className="label-medium text-text-primary">Area: {alert.area}</p>
+            <div className="flex items-start justify-between gap-3">
+              <h4 className="text-lg font-semibold leading-tight truncate">{alert.title}</h4>
+              <div className="flex items-center gap-2">
+                <Badge className={`${getSeverityColor(alert.severity)} text-[10px] px-2 py-0.5`}>{alert.severity.toUpperCase()}</Badge>
+                <span className="text-xs text-text-disabled">{alert.time}</span>
+              </div>
+            </div>
 
-            {alert.category === 'outbreak' && (
-              <>
-                <p className="body-small text-text-secondary mt-1">Cases: <strong>{alert.cases ?? 0}</strong></p>
-                <p className="body-small text-text-secondary mt-1">Symptoms: {alert.symptoms ?? 'Fever, Vomiting'}</p>
-              </>
-            )}
-
-            {alert.category === 'water' && (
-              <>
-                <p className="body-small text-text-secondary mt-1">Contaminant: <strong>{alert.contaminant ?? 'E. coli'}</strong></p>
-                <p className="body-small text-text-secondary mt-1">Source: {alert.source ?? 'Community well'}</p>
-              </>
-            )}
-
-            {alert.category === 'emergency' && (
-              <>
-                <p className="body-small text-text-secondary mt-1">Assistance: <strong>{alert.assistanceType ?? 'Medical team'}</strong></p>
-                <p className="body-small text-text-secondary mt-1">Priority: {alert.status}</p>
-              </>
-            )}
-
-            {alert.category === 'supply' && (
-              <>
-                <p className="body-small text-text-secondary mt-1">Item: <strong>{alert.title.split('-').slice(0,3).join('-')}</strong></p>
-                <p className="body-small text-text-secondary mt-1">Remaining: {typeof alert.remaining === 'number' ? alert.remaining : 'N/A'}</p>
-              </>
-            )}
-
-            <p className="body-small text-text-secondary mt-2">Status: <span className="capitalize">{alert.status}</span></p>
+            <p className="text-sm text-text-secondary mt-2 truncate">{alert.area}</p>
           </div>
-          <div className="flex flex-col items-end gap-2">
-            <Button size="sm" variant="ghost">View</Button>
-          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent className="pt-0 p-4">
+        <div className="grid grid-cols-1 gap-1">
+          {alert.category === 'outbreak' && (
+            <>
+              <p className="text-sm text-text-secondary">Cases: <span className="font-medium">{alert.cases ?? 0}</span></p>
+              <p className="text-sm text-text-secondary">Symptoms: <span className="font-medium">{alert.symptoms ?? 'Fever, Vomiting'}</span></p>
+            </>
+          )}
+
+          {alert.category === 'water' && (
+            <>
+              <p className="text-sm text-text-secondary">Contaminant: <span className="font-medium">{alert.contaminant ?? 'E. coli'}</span></p>
+              <p className="text-sm text-text-secondary">Source: <span className="font-medium">{alert.source ?? 'Community well'}</span></p>
+            </>
+          )}
+
+          {alert.category === 'emergency' && (
+            <>
+              <p className="text-sm text-text-secondary">Assistance: <span className="font-medium">{alert.assistanceType ?? 'Medical team'}</span></p>
+              <p className="text-sm text-text-secondary">Priority: <span className="font-medium">{alert.status}</span></p>
+            </>
+          )}
+
+          {alert.category === 'supply' && (
+            <>
+              <p className="text-sm text-text-secondary">Item: <span className="font-medium">{alert.title.split('-').slice(0,3).join('-')}</span></p>
+              <p className="text-sm text-text-secondary">Remaining: <span className="font-medium">{typeof alert.remaining === 'number' ? alert.remaining : 'N/A'}</span></p>
+            </>
+          )}
+
+          <p className="text-sm text-text-secondary mt-2">Status: <span className="capitalize font-medium">{alert.status}</span></p>
+        </div>
+
+        <div className="mt-3 flex items-center justify-end">
+          <Button size="sm" variant="ghost" className="text-primary">View</Button>
         </div>
       </CardContent>
     </Card>
