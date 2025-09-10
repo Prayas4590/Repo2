@@ -257,7 +257,7 @@ const DoctorDashboard = () => {
 
       {/* Alerts Section */}
       <section id="alerts" className="space-y-6">
-        <AlertsSection />
+        <DoctorAlertsSection />
       </section>
 
       {/* Communication Section */}
