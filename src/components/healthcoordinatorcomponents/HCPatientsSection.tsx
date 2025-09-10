@@ -215,29 +215,32 @@ const HCPatientsSection: React.FC = () => {
         <h2 className="title-medium mb-2">Diagnose Patient (Camp / PHC)</h2>
         <p className="body-small text-text-secondary mb-3">Record diagnosis and treatment provided in camp or primary health center. Fields auto-populate when diagnosing a request.</p>
 
-        <Card className="material-card">
-          <CardContent className="p-4">
-            <form onSubmit={(e) => { e.preventDefault(); submitCampTreatment(e); }} className="space-y-3">
-              <div className="grid grid-cols-1 gap-2">
-                <Input value={formData?.name ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), name: e.target.value }))} placeholder="Name" />
-                <div className="flex gap-2">
-                  <Input value={String(formData?.age ?? '')} onChange={(e) => setFormData(prev => ({ ...(prev || {}), age: Number(e.target.value) }))} placeholder="Age" />
-                  <Input value={formData?.gender ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), gender: e.target.value }))} placeholder="Gender" />
+        {/* Generic diagnose form for camp/PHC - only show when no inline selected */}
+        {!selected && (
+          <Card className="material-card">
+            <CardContent className="p-4">
+              <form onSubmit={(e) => { e.preventDefault(); submitCampTreatment(e); }} className="space-y-3">
+                <div className="grid grid-cols-1 gap-2">
+                  <Input value={formData?.name ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), name: e.target.value }))} placeholder="Name" />
+                  <div className="flex gap-2">
+                    <Input value={String(formData?.age ?? '')} onChange={(e) => setFormData(prev => ({ ...(prev || {}), age: Number(e.target.value) }))} placeholder="Age" />
+                    <Input value={formData?.gender ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), gender: e.target.value }))} placeholder="Gender" />
+                  </div>
+                  <Input value={formData?.location ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), location: e.target.value }))} placeholder="Location" />
+                  <Input value={formData?.symptoms ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), symptoms: e.target.value }))} placeholder="Symptoms" />
+                  <Input value={formData?.treatment ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), treatment: e.target.value }))} placeholder="Treatment / Procedure" />
+                  <Input value={formData?.medication ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), medication: e.target.value }))} placeholder="Medication prescribed" />
+                  <Input value={formData?.diagnosis ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), diagnosis: e.target.value }))} placeholder="Diagnosis / Disease" />
                 </div>
-                <Input value={formData?.location ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), location: e.target.value }))} placeholder="Location" />
-                <Input value={formData?.symptoms ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), symptoms: e.target.value }))} placeholder="Symptoms" />
-                <Input value={formData?.treatment ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), treatment: e.target.value }))} placeholder="Treatment / Procedure" />
-                <Input value={formData?.medication ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), medication: e.target.value }))} placeholder="Medication prescribed" />
-                <Input value={formData?.diagnosis ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), diagnosis: e.target.value }))} placeholder="Diagnosis / Disease" />
-              </div>
 
-              <div className="flex items-center justify-end">
-                <Button type="submit" variant="default">Save</Button>
-                <Button type="button" variant="ghost" className="ml-2" onClick={() => { setFormData(null); setSelected(null); }}>Reset</Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+                <div className="flex items-center justify-end">
+                  <Button type="submit" variant="default">Save</Button>
+                  <Button type="button" variant="ghost" className="ml-2" onClick={() => { setFormData(null); setSelected(null); }}>Reset</Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* Section 3: Archive */}
