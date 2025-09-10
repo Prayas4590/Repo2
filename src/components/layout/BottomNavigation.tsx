@@ -36,11 +36,9 @@ const BottomNavigation = () => {
         ];
       case 'doctor':
         return [
-          { id: 'home', label: 'Dashboard', icon: 'home', path: '/doctor' },
-          { id: 'patients', label: 'Patients', icon: 'group', path: '/patients' },
-          { id: 'chat', label: 'Chat', icon: 'chat', path: '/communication' },
-          { id: 'ai', label: 'AI Insights', icon: 'psychology', path: '/alerts' },
-          { id: 'reports', label: 'Reports', icon: 'description', path: '/reports' }
+          { id: 'reports', label: 'Reports', icon: 'description', path: '/reports' },
+          { id: 'alerts', label: 'Alerts', icon: 'warning', path: '/alerts' },
+          { id: 'communication', label: 'Communication', icon: 'chat', path: '/communication' }
         ];
       default:
         return [];
