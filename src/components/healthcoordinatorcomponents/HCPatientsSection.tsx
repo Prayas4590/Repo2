@@ -197,13 +197,13 @@ const HCPatientsSection: React.FC = () => {
                 </div>
                 <Input value={formData?.location ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), location: e.target.value }))} placeholder="Location" />
                 <Input value={formData?.symptoms ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), symptoms: e.target.value }))} placeholder="Symptoms" />
-                <Input value={formData?.treatment ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), treatment: e.target.value }))} placeholder="Treatment given" />
+                <Input value={formData?.treatment ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), treatment: e.target.value }))} placeholder="Treatment / Procedure" />
                 <Input value={formData?.medication ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), medication: e.target.value }))} placeholder="Medication prescribed" />
                 <Input value={formData?.diagnosis ?? ''} onChange={(e) => setFormData(prev => ({ ...(prev || {}), diagnosis: e.target.value }))} placeholder="Diagnosis / Disease" />
               </div>
 
               <div className="flex items-center justify-end">
-                <Button type="submit" variant="default">Submit</Button>
+                <Button type="submit" variant="default">Save</Button>
                 <Button type="button" variant="ghost" className="ml-2" onClick={() => { setFormData(null); setSelected(null); }}>Reset</Button>
               </div>
             </form>
