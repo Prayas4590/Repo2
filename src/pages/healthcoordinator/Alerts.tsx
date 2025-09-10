@@ -46,19 +46,9 @@ const Alerts = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between py-4">
-        <div>
-          <h1 className="headline-medium text-text-primary mb-1">Health Coordinator Alerts</h1>
-          <p className="body-medium text-text-secondary">Recent alerts and incidents requiring coordination</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link to="/coordinator/dashboard">
-            <Button variant="ghost" size="sm">Open Dashboard</Button>
-          </Link>
-          <Link to="/alerts">
-            <Button size="sm">All Alerts</Button>
-          </Link>
-        </div>
+      <div className="py-4">
+        <h1 className="headline-medium text-text-primary mb-1">Health Coordinator Alerts</h1>
+        <p className="body-medium text-text-secondary">Recent alerts and incidents requiring coordination</p>
       </div>
 
       <HCAlertsNav alerts={alerts} />
