@@ -69,7 +69,7 @@ const HCPatientsSection: React.FC = () => {
   const [selected, setSelected] = useState<RequestPatient | null>(null);
   const [formData, setFormData] = useState<Partial<TreatedRecord> | null>(null);
 
-  const openTreatForm = (request: RequestPatient) => {
+  const openDiagnoseForm = (request: RequestPatient) => {
     setSelected(request);
     setFormData({
       name: request.name,
