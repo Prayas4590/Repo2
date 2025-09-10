@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import { AlertOctagon, Droplets, Activity, Box } from 'lucide-react';
 import HCAlertCard, { AlertItem } from './HCAlertCard';
+export type { AlertItem } from './HCAlertCard';
 
 const sections: { key: AlertItem['category']; label: string; icon: any }[] = [
   { key: 'outbreak', label: 'Outbreak Alerts', icon: AlertOctagon },
