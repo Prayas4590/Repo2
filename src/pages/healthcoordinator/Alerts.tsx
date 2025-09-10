@@ -28,6 +28,17 @@ const Alerts = () => {
       contaminant: 'Suspended solids',
       source: 'River intake'
     },
+    {
+      id: 9,
+      title: 'Chlorine residual low - distribution network',
+      area: 'Block G - Distribution Line 3',
+      severity: 'medium',
+      time: '4 hours ago',
+      status: 'investigating',
+      category: 'water',
+      contaminant: 'Low chlorine residual',
+      source: 'Municipal supply'
+    },
 
     // Outbreak examples
     {
@@ -52,6 +63,17 @@ const Alerts = () => {
       cases: 12,
       symptoms: 'Stomach pain, nausea'
     },
+    {
+      id: 10,
+      title: 'Possible food poisoning reported',
+      area: 'Block H - Community Canteen',
+      severity: 'high',
+      time: '2 hours ago',
+      status: 'open',
+      category: 'outbreak',
+      cases: 8,
+      symptoms: 'Nausea, vomiting'
+    },
 
     // Emergency examples
     {
@@ -74,6 +96,16 @@ const Alerts = () => {
       category: 'emergency',
       assistanceType: 'Hazmat team'
     },
+    {
+      id: 11,
+      title: 'Multiple injuries after collapse',
+      area: 'Block J - Construction Site',
+      severity: 'high',
+      time: '15 minutes ago',
+      status: 'open',
+      category: 'emergency',
+      assistanceType: 'Emergency medical team'
+    },
 
     // Supply shortage examples
     {
@@ -95,6 +127,16 @@ const Alerts = () => {
       status: 'open',
       category: 'supply',
       remaining: 0
+    },
+    {
+      id: 12,
+      title: 'PPE masks running low',
+      area: 'Block K - Health Post',
+      severity: 'medium',
+      time: '10 hours ago',
+      status: 'open',
+      category: 'supply',
+      remaining: 25
     }
   ];
 
