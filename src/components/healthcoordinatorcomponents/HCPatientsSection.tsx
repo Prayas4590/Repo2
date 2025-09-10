@@ -85,7 +85,7 @@ const HCPatientsSection: React.FC = () => {
     // scroll into view could be handled by UI, keeping simple
   };
 
-  const submitTreatment = () => {
+  const submitDiagnosis = () => {
     if (!formData) return;
     const newRecord: TreatedRecord = {
       id: Date.now(),
