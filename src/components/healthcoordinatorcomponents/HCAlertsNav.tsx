@@ -42,21 +42,7 @@ const HCAlertsNav: React.FC<{ alerts: AlertItem[] }> = ({ alerts }) => {
         </div>
       </div>
 
-      {/* Compact actions row: search icon only and spacing */}
-      <div className="flex items-center justify-end">
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" aria-label="search" onClick={() => setQueryOpen(s => !s)}>
-            <Search className="h-5 w-5" />
-          </Button>
-        </div>
-      </div>
-
-      {/* Expandable compact search input (appears when search icon tapped) */}
-      {queryOpen && (
-        <div className="w-full">
-          <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search alerts" />
-        </div>
-      )}
+      {/* Compact actions row (no search) */}
 
       {/* List */}
       <div className="grid grid-cols-1 gap-3">
