@@ -20,6 +20,7 @@ import CoordinatorDashboard from "./pages/dashboards/CoordinatorDashboard";
 import Alerts from "./pages/healthcoordinator/Alerts";
 import DoctorDashboard from "./pages/dashboards/DoctorDashboard";
 import WaterSection from "./components/healthcoordinatorcomponents/WaterSection";
+import DoctorCommunicationPage from "./pages/doctor/Communication";
 
 // Feature Pages
 import ReportsPage from "./pages/ReportsPage";
