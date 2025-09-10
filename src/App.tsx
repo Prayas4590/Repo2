@@ -64,6 +64,7 @@ const App = () => (
                     <Route path="/doctor" element={<DoctorDashboard />} />
                     <Route path="/doctor/communication" element={<DoctorCommunicationPage />} />
                     <Route path="/doctor/alerts" element={<DoctorAlertsPage />} />
+                    <Route path="/doctor/reports" element={<DoctorReportsPage />} />
 
                     {/* Shared Feature Routes */}
                     <Route path="/reports" element={<ReportsPage />} />
