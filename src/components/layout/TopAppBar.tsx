@@ -20,19 +20,10 @@ const TopAppBar = () => {
   const location = useLocation();
 
   const getRoleTitle = () => {
-    if (currentRole === 'citizen') {
-      const path = location.pathname;
-      const params = new URLSearchParams(location.search);
-      if (path === '/resources') return 'Training';
-      if (path === '/communication') return 'Communication';
-      if (path === '/alerts') return 'Alerts';
-      if (path === '/reports') return params.get('type') === 'water' ? 'Water Issues' : 'Report Symptoms';
-      if (path === '/citizen') return 'Home';
-      return 'Citizen';
-    }
     switch (currentRole) {
-      case 'asha': return 'ASHA Worker';
-      case 'coordinator': return 'Health Coordinator';
+      case 'citizen': return 'Citizen Dashboard';
+      case 'asha': return 'ASHA Dashboard';
+      case 'coordinator': return 'Coordinator Dashboard';
       case 'doctor': return 'Doctor Dashboard';
       default: return 'JeevanDhara';
     }
@@ -100,14 +91,10 @@ const TopAppBar = () => {
 
         {/* Center: Title */}
         <div className="flex-1 text-center">
-          {currentRole === 'citizen' ? (
-            <div className="inline-flex items-center gap-2 justify-center">
-              <img src={logo} alt="JeevanDhara" className="h-7 w-7 rounded-full object-cover" />
-              <h1 className="title-large text-text-primary truncate">Citizen</h1>
-            </div>
-          ) : (
-            <h1 className="title-medium text-text-primary truncate">{getRoleTitle()}</h1>
-          )}
+          <div className="inline-flex items-center gap-2 justify-center">
+            <img src={logo} alt="JeevanDhara" className="h-7 w-7 rounded-full object-cover" />
+            <h1 className="title-large text-text-primary truncate">{getRoleTitle()}</h1>
+          </div>
         </div>
 
         {/* Right: Actions */}
@@ -117,9 +104,6 @@ const TopAppBar = () => {
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-error rounded-full text-[10px] flex items-center justify-center text-white">
               3
             </span>
-          </Button>
-          <Button variant="ghost" size="icon" className="ripple rounded-full hover:bg-primary/10">
-            <MdIcon name="cloud_done" size={24} className="text-success" />
           </Button>
         </div>
       </div>
