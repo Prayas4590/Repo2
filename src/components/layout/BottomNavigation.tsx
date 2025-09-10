@@ -69,6 +69,10 @@ const BottomNavigation = () => {
 
   const handleClick = (item: NavItem) => {
     if (item.anchor) {
+      if (location.pathname !== '/doctor') {
+        navigate(`/doctor#${item.anchor}`);
+        return;
+      }
       const el = document.getElementById(item.anchor);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       try { window.history.replaceState(null, '', `#${item.anchor}`); } catch {}
