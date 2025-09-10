@@ -163,7 +163,7 @@ const HCPatientsSection: React.FC = () => {
                     )}
 
                     <div className="mt-4 flex items-center justify-end">
-                      <Button size="sm" variant="default" onClick={() => openTreatForm(r)}>Treat</Button>
+                      <Button size="sm" variant="default" onClick={() => openDiagnoseForm(r)}>Diagnose</Button>
                     </div>
                   </div>
                 </div>
