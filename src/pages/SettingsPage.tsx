@@ -3,12 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import RoleSwitcher from '@/components/settings/RoleSwitcher';
-import { 
-  Settings, 
-  User, 
-  Bell, 
-  Shield, 
+import {
+  Settings,
+  User,
+  Bell,
+  Shield,
   Moon,
   Globe,
   HelpCircle,
@@ -78,8 +77,6 @@ const SettingsPage = () => {
         </CardContent>
       </Card>
 
-      {/* Role Switcher */}
-      <RoleSwitcher />
 
       {/* Settings Groups */}
       {settingsGroups.map((group) => (

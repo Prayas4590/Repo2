@@ -4,15 +4,14 @@ import BottomNavigation from './BottomNavigation';
 import { useRole } from '@/contexts/RoleContext';
 
 const Layout = () => {
-  const { getRoleTheme, currentRole } = useRole();
+  const { getRoleTheme } = useRole();
   const location = useLocation();
 
-  const isCitizen = currentRole === 'citizen';
-  const topPadding = isCitizen ? 'pt-[72px]' : 'pt-14';
+  const topPadding = 'pt-14';
   const hideGlobalBottomNav = location.pathname === '/asha';
 
   return (
-    <div className={`min-h-screen pb-16 ${topPadding} ${getRoleTheme()}`}>
+    <div className={`min-h-screen pb-14 ${topPadding} ${getRoleTheme()}`}>
       <TopAppBar />
       <main className="container mx-auto px-4 py-4 max-w-md">
         <Outlet />
