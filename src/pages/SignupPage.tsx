@@ -21,7 +21,7 @@ const SectionTitle = ({ children }: { children: React.ReactNode }) => (
   <div className="font-semibold text-base mb-2 text-text-primary">{children}</div>
 );
 
-const TextField = ({ label, value, onChange, placeholder, type = 'text', disabled = false, inputMode }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string; type?: string; disabled?: boolean; inputMode?: React.HTMLInputTypeAttribute | 'numeric' | 'text' }) => (
+const TextField = ({ label, value, onChange, placeholder, type = 'text', disabled = false, inputMode }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string; type?: string; disabled?: boolean; inputMode?: React.HTMLAttributes<HTMLInputElement>['inputMode'] }) => (
   <div className="mb-3">
     <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
     <input
@@ -31,7 +31,7 @@ const TextField = ({ label, value, onChange, placeholder, type = 'text', disable
       placeholder={placeholder}
       type={type}
       disabled={disabled}
-      inputMode={inputMode as any}
+      inputMode={inputMode}
     />
   </div>
 );
