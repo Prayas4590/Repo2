@@ -139,7 +139,7 @@ const CommunicationPage = () => {
       </div>
 
       {/* Communication features */}
-      <ChatSection />
+      {currentRole === 'doctor' ? <DoctorCommunicationHub /> : <ChatSection />}
     </div>
   );
 };
