@@ -164,6 +164,19 @@ const PatientsPage = () => {
     return matchesSearch && matchesFilter;
   });
 
+  if (currentRole === 'coordinator') {
+    return (
+      <div className="space-y-6 animate-fade-in">
+        <div className="text-center py-4">
+          <h1 className="headline-medium text-text-primary mb-2">Patient Management</h1>
+          <p className="body-medium text-text-secondary">Track and manage patient health records</p>
+        </div>
+
+        <HCPatientsSection />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
@@ -341,7 +354,7 @@ const PatientsPage = () => {
                         Vitals
                       </Button>
                     </div>
-                    
+
                     <Button variant="ghost" size="sm" className="text-primary">
                       <span className="body-small mr-1">View Details</span>
                       <ChevronRight className="h-4 w-4" />
