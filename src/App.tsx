@@ -60,7 +60,8 @@ const App = () => (
                     <Route path="/coordinator/dashboard" element={<Alerts />} />
                     <Route path="/coordinator/water" element={<WaterSection />} />
                     <Route path="/doctor" element={<DoctorDashboard />} />
-                    
+                    <Route path="/doctor/communication" element={<DoctorCommunicationPage />} />
+
                     {/* Shared Feature Routes */}
                     <Route path="/reports" element={<ReportsPage />} />
                     <Route path="/alerts" element={<AlertsPage />} />
