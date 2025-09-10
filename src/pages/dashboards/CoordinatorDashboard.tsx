@@ -13,6 +13,8 @@ import {
   Plus
 } from 'lucide-react';
 
+import { Link } from 'react-router-dom';
+
 const CoordinatorDashboard = () => {
   const statsCards = [
     {
@@ -103,11 +105,16 @@ const CoordinatorDashboard = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Welcome Section */}
-      <div className="text-center py-4">
-        <h1 className="headline-medium text-text-primary mb-2">Coordinator Hub</h1>
-        <p className="body-medium text-text-secondary">
-          Health facility management and coordination
-        </p>
+      <div className="flex items-center justify-between py-4">
+        <div>
+          <h1 className="headline-medium text-text-primary mb-2">Coordinator Hub</h1>
+          <p className="body-medium text-text-secondary">Health facility management and coordination</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link to="/coordinator" className="inline-flex">
+            <Button variant="ghost" size="sm" className="ripple">Alerts</Button>
+          </Link>
+        </div>
       </div>
 
       {/* Stats Overview */}

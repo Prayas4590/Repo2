@@ -23,7 +23,7 @@ const roleConfig = {
   },
   coordinator: {
     color: 'coordinator',
-    path: '/coordinator',
+    path: '/coordinator/dashboard',
     theme: 'theme-coordinator'
   },
   doctor: {
