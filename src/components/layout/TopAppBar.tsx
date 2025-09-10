@@ -46,7 +46,7 @@ const TopAppBar = () => {
               <MdIcon name="menu" size={28} />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-64 bg-card border border-border rounded-xl p-0 overflow-hidden">
+          <DropdownMenuContent align="start" className="w-[calc(100vw-32px)] sm:w-80 bg-card border border-border rounded-2xl p-0 overflow-hidden max-h-[70vh] overflow-y-auto">
             <div className="flex items-center gap-3 p-3">
               <Avatar className="h-10 w-10">
                 <AvatarFallback className="bg-primary text-primary-foreground">
@@ -64,11 +64,11 @@ const TopAppBar = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onSelect={(e) => { e.preventDefault(); setRoleOpen((v) => !v); }}
-                  className="flex items-center gap-3 p-3 ripple cursor-pointer"
+                  className="flex items-center gap-4 p-3 min-h-12 ripple cursor-pointer"
                 >
-                  <MdIcon name="swap_horiz" size={18} />
-                  <span className="flex-1">Switch Role</span>
-                  <MdIcon name={roleOpen ? 'expand_less' : 'expand_more'} size={18} />
+                  <MdIcon name="swap_horiz" size={24} />
+                  <span className="flex-1 label-large">Switch Role</span>
+                  <MdIcon name={roleOpen ? 'expand_less' : 'expand_more'} size={24} />
                 </DropdownMenuItem>
                 {roleOpen && user.availableRoles.map((role) => {
                   const label = role === 'citizen' ? 'Citizen' : role === 'asha' ? 'ASHA Worker' : role === 'coordinator' ? 'Coordinator' : 'Doctor';
@@ -78,11 +78,11 @@ const TopAppBar = () => {
                     <DropdownMenuItem
                       key={role}
                       onClick={() => { if (!active) { switchRole(role); navigate(getRolePath(role)); } }}
-                      className={`flex items-center gap-3 p-3 ripple cursor-pointer ${active ? 'bg-primary/5' : ''}`}
+                      className={`flex items-center gap-4 p-3 min-h-12 ripple cursor-pointer ${active ? 'bg-primary/5' : ''}`}
                     >
-                      <MdIcon name={icon} size={18} />
-                      <span className="flex-1">{label}</span>
-                      {active && <MdIcon name="check" size={18} className="text-primary" />}
+                      <MdIcon name={icon} size={24} />
+                      <span className="flex-1 label-large">{label}</span>
+                      {active && <MdIcon name="check" size={24} className="text-primary" />}
                     </DropdownMenuItem>
                   );
                 })}
@@ -90,28 +90,28 @@ const TopAppBar = () => {
             )}
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="flex items-center gap-3 p-3 ripple">
-              <MdIcon name="person" size={18} />
-              <span>Profile</span>
+            <DropdownMenuItem className="flex items-center gap-4 p-3 min-h-12 ripple">
+              <MdIcon name="person" size={24} />
+              <span className="label-large">Profile</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => navigate('/settings')}
-              className="flex items-center gap-3 p-3 ripple cursor-pointer"
+              className="flex items-center gap-4 p-3 min-h-12 ripple cursor-pointer"
             >
-              <MdIcon name="settings" size={18} />
-              <span>Settings</span>
+              <MdIcon name="settings" size={24} />
+              <span className="label-large">Settings</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex items-center gap-3 p-3 ripple">
-              <MdIcon name="help" size={18} />
-              <span>Help & Support</span>
+            <DropdownMenuItem className="flex items-center gap-4 p-3 min-h-12 ripple">
+              <MdIcon name="help" size={24} />
+              <span className="label-large">Help & Support</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={logout}
-              className="flex items-center gap-3 p-3 ripple text-error"
+              className="flex items-center gap-4 p-3 min-h-12 ripple text-error"
             >
-              <MdIcon name="logout" size={18} />
-              <span>Sign Out</span>
+              <MdIcon name="logout" size={24} />
+              <span className="label-large">Sign Out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
