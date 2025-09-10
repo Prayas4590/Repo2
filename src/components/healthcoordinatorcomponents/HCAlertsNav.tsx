@@ -36,9 +36,10 @@ const HCAlertsNav: React.FC<{ alerts: AlertItem[] }> = ({ alerts }) => {
                 onClick={() => setActive(s.key)}
                 aria-label={s.label}
                 title={s.label}
-                className={`flex items-center justify-center h-12 w-full rounded-xl transition-shadow ${selected ? 'bg-primary/10 ring-1 ring-primary shadow-sm' : 'bg-card/50 hover:bg-card/80'}`}
+                className={`flex flex-col items-center justify-center h-14 w-full rounded-xl transition-shadow px-1 py-1 ${selected ? 'bg-primary/10 ring-1 ring-primary shadow-sm' : 'bg-card/50 hover:bg-card/80'}`}
               >
-                <Icon className={`${selected ? 'text-primary' : 'text-text-secondary'} h-5 w-5`} />
+                <Icon className={`${selected ? 'text-primary' : 'text-text-secondary'} h-6 w-6`} />
+                <span className={`text-xs mt-1 ${selected ? 'text-primary font-medium' : 'text-text-secondary'}`}>{s.label.split(' ')[0]}</span>
               </button>
             );
           })}
