@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Input } from '@/components/ui/input';
-import { IconButton } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import { AlertOctagon, Droplets, Activity, Box } from 'lucide-react';
 import HCAlertCard, { AlertItem } from './HCAlertCard';
