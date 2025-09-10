@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, AlertTriangle, Activity, Package, Droplets, ExternalLink } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 
 export interface AlertItem {
   id: number;
