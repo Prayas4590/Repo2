@@ -44,13 +44,6 @@ const TopAppBar = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-64 bg-card border border-border rounded-xl p-0 overflow-hidden">
-            <div className="flex items-center gap-3 p-3 bg-primary/5 border-b border-border">
-              <img src={logo} alt="JeevanDhara" className="h-8 w-8 rounded-full object-cover" />
-              <div className="flex-1 min-w-0">
-                <p className="label-medium text-text-primary">JeevanDhara</p>
-                <p className="body-small text-text-secondary">Citizen</p>
-              </div>
-            </div>
             <div className="flex items-center gap-3 p-3">
               <Avatar className="h-10 w-10">
                 <AvatarFallback className="bg-primary text-primary-foreground">
